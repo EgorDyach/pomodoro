@@ -1,0 +1,41 @@
+@font-face {
+    font-family: 'display200';
+    src: url('./fonts/display200.woff');
+}
+@font-face {
+    font-family: 'display300';
+    src: url('./fonts/display300.woff');
+}
+@font-face {
+    font-family: 'display400';
+    src: url('./fonts/display400.woff');
+}
+@font-face {
+    font-family: 'display500';
+    src: url('./fonts/display500.woff');
+}
+@font-face {
+    font-family: 'display600';
+    src: url('./fonts/display600.woff');
+}
+@font-face {
+    font-family: 'display700';
+    src: url('./fonts/display700.woff');
+}
+
+.container {
+    max-width: 1280px;
+    padding: 0 10px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
