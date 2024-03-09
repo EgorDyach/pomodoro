@@ -1,4 +1,3 @@
-import React from 'react'
 import { Text } from '../components/Text'
 import { Link } from 'react-router-dom'
 import { EIcons, Icon } from '../components/Icon'
