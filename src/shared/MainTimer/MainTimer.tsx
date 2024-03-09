@@ -1,5 +1,4 @@
-import React from 'react';
-import styles from './maintimer.css';
+import  './maintimer.css';
 
 export function MainTimer() {
   return (

@@ -1,0 +1,26 @@
+.mainInfo {
+    max-width: 50%;
+}
+
+.mainInfo__item-text {
+    line-height: 33px;
+    max-width: 480px;
+    display: block;
+}
+
+.mainInfo__item {
+    padding-left: 5px;
+}
+
+.mainInfo__item::marker {
+    color: #B7280F;
+}
+
+.mainInfo__list {
+    padding: 0 0 0 15px;
+    margin: 0;
+}
+
+.mainInfo__title {
+    margin-bottom: 10px;
+}
