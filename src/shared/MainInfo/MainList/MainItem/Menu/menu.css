@@ -1,0 +1,44 @@
+.menu {
+    position: absolute;
+    border: 1px solid #C4C4C4;
+    right: 10px;
+    top: 60%;
+    background-color: #fff;
+    z-index: 9;
+    transform: translateX(50%);
+}
+
+.menu::after {
+    content: '';
+    width: 8.2px;
+    height: 8.2px;
+    rotate: 45deg;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid #C4C4C4;
+    border-left: 1px solid #C4C4C4;
+    position: absolute;
+    transform: translate(-30%, -50%);
+    background-color: #fff;
+}
+
+.menu__list {
+    list-style: none;
+    margin: 0;
+    padding: 7.5px 0;
+}
+
+.menuItem {
+    padding: 7.5px 15px;
+    transition: background-color .3s ease-in-out;
+}
+
+.menuItem__btn {
+    display: flex;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.menuItem:hover {
+    background-color: #f4f4f4;
+}

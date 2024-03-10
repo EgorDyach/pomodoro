@@ -1,5 +1,6 @@
 import { Text } from '../../components/Text';
 import { MainInfoForm } from './MainInfoForm';
+import { MainList } from './MainList';
 import './maininfo.css';
 
 export function MainInfo() {
@@ -23,7 +24,10 @@ export function MainInfo() {
           <Text weight={300} color='#333333' size={16} className='mainInfo__item-text'>Продолжайте работать «помидор» за «помидором», пока задача не будут выполнена. Каждые 4 «помидора» делайте длинный перерыв (15-30 минут).</Text>
         </li>
       </ul>
-      <MainInfoForm />
+      <div className='mainInfo__tasks'>
+        <MainInfoForm />
+        <MainList />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,57 @@
+.mainInfoForm {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.mainInfoForm__input {
+    width: 100%;
+    padding: 19px 15px;
+    margin: 0;
+    border: 0;
+    background-color: #F4F4F4;
+    font-family: 'display300';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    transition: background-color .3s ease-in-out, outline-color .3s ease-in-out;
+    outline: 2px solid transparent;
+}
+
+.mainInfoForm__input::placeholder {
+    color: #999;
+}
+
+.mainInfoForm__input:hover {
+    background-color: #e8e7e7;
+}
+
+
+.mainInfoForm__input:focus {
+    outline-color: #B7280F;
+}
+
+.mainInfoForm__submit {
+    color: #fff;
+    cursor: pointer;
+    padding: 19px 50px;
+    background-color: #A8B64F;
+    margin: 0;
+    border: 0;
+    outline: 0;
+    font-family: 'display500';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+    transition: background-color .3s ease-in-out;
+}
+
+.mainInfoForm__submit:hover {
+    background-color: #899441;
+}
