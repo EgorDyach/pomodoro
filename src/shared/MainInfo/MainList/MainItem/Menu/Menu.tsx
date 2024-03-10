@@ -37,8 +37,8 @@ export function Menu({ count}: {count: number}) {
             </Text>
           </button>
         </li>
-        <li className={0 !== 1 ? 'menuItem' : 'menuItem menuItem-disabled'}>
-          <button disabled={!(count<99)} className='menuItem__btn' data-type={"menuMinus"} onClick={handleClick}>
+        <li className={count > 1 ? 'menuItem' : 'menuItem menuItem-disabled'}>
+          <button disabled={!(count > 1)} className='menuItem__btn' data-type={"menuMinus"} onClick={handleClick}>
             <Icon typeOfIcon={EIcons.minus} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
               Уменьшить
