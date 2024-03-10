@@ -28,6 +28,7 @@ export function ModalContentPlus({active}: {active: Task}) {
   }
   return (
     <div className='modalcontent__plus modalcontent'>
+      <Text As='h3' size={24} color='#333' weight={300} className='modalcontent__title'>Увеличить кол-во "Помидоров"?</Text>
           <Text As='span' size={16} weight={300} color='#444444'>Сумарное число "Помидорок" должно быть неотрицательным и меньше 99 (Нужно же себя беречь!)</Text>
           <Text As='span' size={20} weight={300} color='#999'>Сейчас "Помидорок": {active.count}</Text>
           <input className='modalcontent__input' min={0} max={99 - active.count} type="number" onChange={handleChange} value={number} />

@@ -45,16 +45,16 @@ export function Menu({ count}: {count: number}) {
             </Text>
           </button>
         </li>
-        <li className={0 == 0 ? 'menuItem' : 'menuItem menuItem-disabled'}>
-          <button disabled={!(count<99)} className='menuItem__btn' data-type={"menuChange"} onClick={handleClick}>
+        <li className={'menuItem'}>
+          <button className='menuItem__btn' data-type={"menuChange"} onClick={handleClick}>
             <Icon typeOfIcon={EIcons.pen} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
               Редактировать
             </Text>
           </button>
         </li>
-        <li className={ 0 == 0 ? 'menuItem' : 'menuItem menuItem-disabled'}>
-          <button disabled={!(count<99)} className='menuItem__btn' data-type={"menuDelete"} onClick={handleClick}>
+        <li className={'menuItem'}>
+          <button className='menuItem__btn' data-type={"menuDelete"} onClick={handleClick}>
             <Icon typeOfIcon={EIcons.trash} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
               Удалить

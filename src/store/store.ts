@@ -6,6 +6,7 @@ import { AddTaskReducer } from "./MainForm/reducer";
 import { plusReducer } from './modal/plusReducer';
 import { minusReducer } from './modal/minusReducer';
 import { deleteReducer } from './modal/deleteReducer';
+import { changeReducer } from './modal/changeReducer';
 
 export const SET_COMMENT = "SET_COMMENT";
 export const SET_FROM_LOCAL = "SET_FROM_LOCAL";
@@ -20,6 +21,7 @@ export const IS_NOT_OPEN = "IS_NOT_OPEN";
 export const TASK_COUNT_PLUS = "TASK_COUNT_PLUS";
 export const TASK_COUNT_MINUS = "TASK_COUNT_MINUS";
 export const TASK_DELETE = "TASK_DELETE";
+export const TASK_CHANGE_NAME = "TASK_CHANGE_NAME";
 export type Task = {
     title: string;
     count: number;
@@ -82,6 +84,12 @@ export const rootReducer: Reducer<RootState, AnyAction> = (state = initialState,
             return {
                 ...state,
                 Local: deleteReducer(state.Local, action), 
+                isFromLocal: false
+            }
+        case TASK_CHANGE_NAME:
+            return {
+                ...state,
+                Local: changeReducer(state.Local, action),
                 isFromLocal: false
             }
         default:
