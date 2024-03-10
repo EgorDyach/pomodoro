@@ -1,9 +1,9 @@
-.modalcontent__plus {
+.modalcontent {
     display: flex;
     flex-direction: column;
 }
 
-.modalcontent__plus-input {
+.modalcontent__input {
     max-width: 60px;
     width: 100%;
     border: 0;
@@ -13,15 +13,15 @@
     outline: 2px solid transparent;
 }
 
-.modalcontent__plus-input:hover {
+.modalcontent__input:hover {
     background-color: #e4e4e4;
 }
 
-.modalcontent__plus-input:focus {
+.modalcontent__input:focus {
     outline-color: #B7280F;
 }
 
-.modalcontent__plus-submit {
+.modalcontent__submit {
     color: #fff;
     cursor: pointer;
     padding: 19px 50px;
@@ -38,12 +38,22 @@
     transition: background-color .3s ease-in-out;
 }
 
-.modalcontent__plus-submit:hover {
+.modalcontent__submit:hover {
     background-color: #899441;
 }
 
-.modalcontent__plus-cancel {
+.modalcontent__cancel {
     text-decoration: underline;
     cursor: pointer;
+    font-family: 'display200';
+    color: #333;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
     text-underline-offset: 3px;
+}
+.modalcontent__title {
+    margin: 0;
 }

@@ -28,7 +28,7 @@
 .modalcontent {
     z-index: 100;
     background-color: #fff;
-     padding: 30px;
+     padding: 20px 90px;
     position: relative;
     display: flex;
     align-items: center;

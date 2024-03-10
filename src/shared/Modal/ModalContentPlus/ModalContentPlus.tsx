@@ -30,9 +30,9 @@ export function ModalContentPlus({active}: {active: Task}) {
     <div className='modalcontent__plus modalcontent'>
           <Text As='span' size={16} weight={300} color='#444444'>Сумарное число "Помидорок" должно быть неотрицательным и меньше 99 (Нужно же себя беречь!)</Text>
           <Text As='span' size={20} weight={300} color='#999'>Сейчас "Помидорок": {active.count}</Text>
-          <input className='modalcontent__plus-input' min={0} max={99 - active.count} type="number" onChange={handleChange} value={number} />
-          <button className='modalcontent__plus-submit' onClick={handleSubmit}>Увеличить</button>
-          <button className='modalcontent__plus-cancel' onClick={handleCancel}>Отмена</button>
+          <input className='modalcontent__input' min={0} max={99 - active.count} type="number" onChange={handleChange} value={number} />
+          <button className='modalcontent__submit' onClick={handleSubmit}>Увеличить</button>
+          <button className='modalcontent__cancel' onClick={handleCancel}>Отмена</button>
     </div>
   );
 }

@@ -1,0 +1,7 @@
+.modalcontent__delete .modalcontent__submit {
+    background-color: #DC3E22;
+}
+
+.modalcontent__delete .modalcontent__submit:hover {
+    background-color: #a72f1a;
+}
