@@ -24,8 +24,10 @@ export function MainInfoForm() {
 
   const handleSubmit = () => {
     event?.preventDefault();
-    dispatch({ type: ADD_TASK, newTask: { id: generateId(), title: valueOfTask, count: 1 }, isFromLocal: false })
-    setValueOfTask('')
+    if (valueOfTask.length > 2) {
+      dispatch({ type: ADD_TASK, newTask: { id: generateId(), title: valueOfTask, count: 1 }, isFromLocal: false })
+      setValueOfTask('')
+    }
   }
   return (
     <form className='mainInfoForm' onSubmit={handleSubmit}>

@@ -1,0 +1,48 @@
+.modalcontent__plus {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalcontent__plus-input {
+    max-width: 40px;
+    border: 0;
+    background-color: #f4f4f4;
+    padding: 10px;
+    transition: background-color .3s ease-in-out, outline-color .3s ease-in-out;
+    outline: 2px solid transparent;
+}
+
+.modalcontent__plus-input:hover {
+    background-color: #e4e4e4;
+}
+
+.modalcontent__plus-input:focus {
+    outline-color: #B7280F;
+}
+
+.modalcontent__plus-submit {
+    color: #fff;
+    cursor: pointer;
+    padding: 19px 50px;
+    background-color: #A8B64F;
+    margin: 0;
+    border: 0;
+    outline: 0;
+    font-family: 'display500';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+    transition: background-color .3s ease-in-out;
+}
+
+.modalcontent__plus-submit:hover {
+    background-color: #899441;
+}
+
+.modalcontent__plus-cancel {
+    text-decoration: underline;
+    cursor: pointer;
+    text-underline-offset: 3px;
+}

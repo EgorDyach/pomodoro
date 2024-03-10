@@ -12,7 +12,7 @@ export function Layout({children}: {children: ReactNode}) {
     if (stringFromLocal !== '') {
       console.log(stringFromLocal)
       const stateFromLocal = JSON.parse(stringFromLocal)
-      dispatch({type: 'SET_FROM_LOCAL', stateFromLocal, isFromLocal: true})
+      dispatch({type: 'SET_FROM_LOCAL', stateFromLocal})
     }
   }, [stringFromLocal, dispatch])
   useEffect(() => {

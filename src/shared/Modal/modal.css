@@ -1,0 +1,36 @@
+.modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    z-index: 10;
+}
+
+.modalOpen {
+    display: flex;
+}
+
+.modal::after {
+    content: '';
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalcontent {
+    z-index: 100;
+    background-color: #fff;
+     padding: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}

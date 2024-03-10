@@ -42,3 +42,12 @@
 .menuItem:hover {
     background-color: #f4f4f4;
 }
+
+.menuItem-disabled {
+    filter: grayscale(1);
+    background-color: #f4f4f4;
+}
+
+.menuItem-disabled .menuItem__btn {
+    cursor:default;
+}

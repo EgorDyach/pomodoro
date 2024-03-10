@@ -26,7 +26,7 @@ export function MainItem({ e }: { e: Task }) {
       <button className='mainItem__btn' onClick={handleClick}>
         <Icon typeOfIcon={EIcons.menu} size={26} />
       </button>
-        {e.id === activeMenuID && <Menu element={e} onClose={handleClick} />}
+        {e.id === activeMenuID && <Menu count={e.count}/>}
     </li>
   );
 }
