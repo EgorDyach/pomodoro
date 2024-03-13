@@ -51,3 +51,7 @@
 .menuItem-disabled .menuItem__btn {
     cursor:default;
 }
+
+.rotate180 {
+    transform: rotate(180deg);
+}

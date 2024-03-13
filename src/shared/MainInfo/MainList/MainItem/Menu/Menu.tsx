@@ -2,38 +2,51 @@ import './menu.css';
 import { EIcons, Icon } from '../../../../../components/Icon';
 import { Text } from '../../../../../components/Text';
 import { useDispatch } from 'react-redux';
+import { RootState, Task } from '../../../../../store/store';
+import { useSelector } from 'react-redux';
 
-export function Menu({ count}: {count: number}) {
+export function Menu({ task }: { task: Task }) {
+  const count = task.count
   const dispatch = useDispatch();
+  const tasks = useSelector<RootState, Task[]>(state => state.Local.arrayOfTasks)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const target = event?.target as HTMLElement;
     const btnType = target.closest('.menuItem__btn')?.getAttribute('data-type');
     switch (btnType) {
       case 'menuPlus':
-        dispatch({type: "OPEN_MODAL_PLUS"})
+        dispatch({ type: "OPEN_MODAL_PLUS" })
         break;
       case 'menuMinus':
-        dispatch({type: "OPEN_MODAL_MINUS"})
+        dispatch({ type: "OPEN_MODAL_MINUS" })
         break;
       case 'menuChange':
-        dispatch({type: "OPEN_MODAL_CHANGE"})
+        dispatch({ type: "OPEN_MODAL_CHANGE" })
         break;
       case 'menuDelete':
-        dispatch({type: "OPEN_MODAL_DELETE"})
+        dispatch({ type: "OPEN_MODAL_DELETE" })
         break;
-    
+      case 'menuUpPriority':
+        dispatch({ type: "CHANGE_PRIORITY_UP", activeMenuID: task.id});
+        dispatch({ type: "SET_ACTIVE_MENU_ID", activeMenuID: 0 })
+        break;
+      case 'menuDownPriority':
+        dispatch({ type: "CHANGE_PRIORITY_DOWN", activeMenuID: task.id});
+        dispatch({ type: "SET_ACTIVE_MENU_ID", activeMenuID: 0 })
+        break;
       default:
         break;
     }
   }
+
+
   return (
     <div className='menu'>
       <ul className='menu__list'>
         <li className={count < 99 ? 'menuItem' : 'menuItem menuItem-disabled'}>
-          <button disabled={!(count<99)} className='menuItem__btn' data-type={"menuPlus"} onClick={handleClick}>
+          <button disabled={!(count < 99)} className='menuItem__btn' data-type={"menuPlus"} onClick={handleClick}>
             <Icon typeOfIcon={EIcons.plus} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
-              Увеличить
+              Увеличить помидорки
             </Text>
           </button>
         </li>
@@ -41,7 +54,7 @@ export function Menu({ count}: {count: number}) {
           <button disabled={!(count > 1)} className='menuItem__btn' data-type={"menuMinus"} onClick={handleClick}>
             <Icon typeOfIcon={EIcons.minus} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
-              Уменьшить
+              Уменьшить помидорки
             </Text>
           </button>
         </li>
@@ -50,6 +63,22 @@ export function Menu({ count}: {count: number}) {
             <Icon typeOfIcon={EIcons.pen} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
               Редактировать
+            </Text>
+          </button>
+        </li>
+        <li className={tasks[0]?.id === task.id ? 'menuItem menuItem-disabled' : "menuItem"}>
+          <button disabled={tasks[0].id === task.id} className='menuItem__btn' data-type={"menuUpPriority"} onClick={handleClick}>
+            <Icon fill='#A8B64F' typeOfIcon={EIcons.up} size={18} />
+            <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
+              Поднять приоритет
+            </Text>
+          </button>
+        </li>
+        <li className={tasks[tasks.length-1]?.id === task.id ? 'menuItem menuItem-disabled' : "menuItem"}>
+          <button className='menuItem__btn' disabled={tasks[tasks.length-1].id === task.id} data-type={"menuDownPriority"} onClick={handleClick}>
+            <Icon typeOfIcon={EIcons.up} size={18} className='rotate180' fill='#A8B64F' />
+            <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
+              Опустить приоритет
             </Text>
           </button>
         </li>

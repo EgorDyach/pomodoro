@@ -3,6 +3,7 @@ import { loadState, saveState } from '../../store/localStorage';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import './layout.css';
 
 export function Layout({children}: {children: ReactNode}) {
   const dispatch = useDispatch()
@@ -21,7 +22,7 @@ export function Layout({children}: {children: ReactNode}) {
     }
   }, [state])
   return (
-    <div>
+    <div className={state.Local.appTheme === "dark" ? 'darkTheme layout' : 'lightTheme layout'}>
       {children}
     </div>
   );

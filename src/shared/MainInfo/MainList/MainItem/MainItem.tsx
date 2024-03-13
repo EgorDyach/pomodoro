@@ -10,6 +10,7 @@ export function MainItem({ e }: { e: Task }) {
 
   const dispatch = useDispatch();
   const activeMenuID = useSelector<RootState>(state => state.activeMenuID);
+  const appTheme = useSelector<RootState, string>(state => state.Local.appTheme);
   const handleClick = () => {
     if (e.id === activeMenuID) {
       dispatch({ type: 'SET_ACTIVE_MENU_ID', activeMenuID: 0 });
@@ -20,13 +21,13 @@ export function MainItem({ e }: { e: Task }) {
   return (
     <li key={e.id} className='mainItem' id={String(e.id)}>
       <div className="mainItem__info">
-        <Text size={16} color='#333333' weight={300} As='h3' className='mainItem__count'>{e.count}</Text>
-        <Text size={16} color='#333333' weight={300} As='p' className='mainItem__title'>{e.title}</Text>
+        <Text size={16} color={appTheme === "dark" ? '#E7E7E7' : '#333333'} weight={300} As='h3' className='mainItem__count'>{e.count}</Text>
+        <Text size={16} color={appTheme === "dark" ? '#E7E7E7' : '#333333'}  weight={300} As='p' className='mainItem__title'>{e.title}</Text>
       </div>
       <button className='mainItem__btn' onClick={handleClick}>
         <Icon typeOfIcon={EIcons.menu} size={26} />
       </button>
-        {e.id === activeMenuID && <Menu count={e.count}/>}
+        {e.id === activeMenuID && <Menu task={e}/>}
     </li>
   );
 }

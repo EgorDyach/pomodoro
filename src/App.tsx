@@ -12,10 +12,7 @@ const store = createStore(
   composeEnhancers()
 );
 
-
-
 function App() {
-  
   return (
     <Provider store={store}>
       <BrowserRouter>

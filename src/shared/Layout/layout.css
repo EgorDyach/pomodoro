@@ -1,0 +1,12 @@
+.darkTheme .header {
+    background-color: #171717;
+    transition: .3s ease-in-out;
+}
+.darkTheme {
+    background-color: #252525;
+}
+
+.layout {
+    transition: .3s ease-in-out;   
+    min-height: 100vh;
+}

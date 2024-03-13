@@ -1,6 +1,6 @@
 import './icon.css';
 import classNames from 'classnames';
-import { IconFocus, IconHome, IconMenu, IconMinus, IconPen, IconPlus, IconPomidor, IconStatistic, IconStop, IconTime, IconTrash } from '../../assets/Icons';
+import { IconFocus, IconHome, IconMenu, IconMinus, IconPen, IconPlus, IconPomidor, IconStatistic, IconStop, IconTime, IconTrash, IconUp } from '../../assets/Icons';
 
 export enum EIcons {
   focus = "focus",
@@ -13,17 +13,19 @@ export enum EIcons {
   statistic = "statistic",
   stop = "stop",
   time = "time",
-  trash = "trash"
+  trash = "trash",
+  up = "up",
 }
 interface IIconProps {
   typeOfIcon: EIcons;
   className?: string;
   size?: number;
+  fill?: string;
 }
 
-export function Icon({typeOfIcon, className, size}: IIconProps) {
+export function Icon({typeOfIcon, className, size, fill}: IIconProps) {
   const classes = classNames(
-    `img-wh-${size}`, className,  `imgIcon`
+    `img-wh-${size}`, className, `imgIcon`
   )
   return (
     <span className={classes}>
@@ -33,11 +35,12 @@ export function Icon({typeOfIcon, className, size}: IIconProps) {
       {EIcons.minus === typeOfIcon && <IconMinus />}
       {EIcons.pen === typeOfIcon && <IconPen />}
       {EIcons.plus === typeOfIcon && <IconPlus />}
-      {EIcons.pomidor === typeOfIcon && <IconPomidor />}
+      {EIcons.pomidor === typeOfIcon && <IconPomidor fill={fill} />}
       {EIcons.statistic === typeOfIcon && <IconStatistic />}
       {EIcons.stop === typeOfIcon && <IconStop />}
       {EIcons.time === typeOfIcon && <IconTime />}
       {EIcons.trash === typeOfIcon && <IconTrash />}
+      {EIcons.up === typeOfIcon && <IconUp />}
     </span>
   );
 }

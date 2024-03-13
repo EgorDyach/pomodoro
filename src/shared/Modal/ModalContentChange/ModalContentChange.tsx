@@ -5,7 +5,7 @@ import { SET_ACTIVE_MENU_ID, Task } from '../../../store/store';
 import { Text } from '../../../components/Text';
 
 export function ModalContentChange({ active }: { active: Task }) {
-  const [newNameOfTask, setNewNameOfTask] = useState('');
+  const [newNameOfTask, setNewNameOfTask] = useState(active.title);
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,6 @@ export function ModalContentChange({ active }: { active: Task }) {
   return (
     <div className='modalcontent__change modalcontent'>
       <Text As='h3' size={24} color='#333' weight={300} className='modalcontent__title'>Редактировать задчаучаучау?</Text>
-      <Text As='span' size={20} weight={300} color='#999'>Прошлое название: "{active.title}"</Text>
       <input className='modalcontent__input modalcontent__input-change' onChange={handleChange} value={newNameOfTask} />
       {error !== '' && <Text As='span' color='red' size={14}>{error}</Text>}
       <button className='modalcontent__submit' onClick={handleSubmit}>Изменить</button>

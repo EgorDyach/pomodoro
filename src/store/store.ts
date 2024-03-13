@@ -7,6 +7,9 @@ import { plusReducer } from './modal/plusReducer';
 import { minusReducer } from './modal/minusReducer';
 import { deleteReducer } from './modal/deleteReducer';
 import { changeReducer } from './modal/changeReducer';
+import { themeReducer } from './Theme/reducer';
+import { upPriorityReducer } from './menu/upPriority';
+import { downPriorityReducer } from './menu/downPriority';
 
 export const SET_COMMENT = "SET_COMMENT";
 export const SET_FROM_LOCAL = "SET_FROM_LOCAL";
@@ -22,6 +25,9 @@ export const TASK_COUNT_PLUS = "TASK_COUNT_PLUS";
 export const TASK_COUNT_MINUS = "TASK_COUNT_MINUS";
 export const TASK_DELETE = "TASK_DELETE";
 export const TASK_CHANGE_NAME = "TASK_CHANGE_NAME";
+export const CHANGE_THEME = "CHANGE_THEME";
+export const CHANGE_PRIORITY_UP = "CHANGE_PRIORITY_UP";
+export const CHANGE_PRIORITY_DOWN = "CHANGE_PRIORITY_DOWN";
 export type Task = {
     title: string;
     count: number;
@@ -33,6 +39,7 @@ export type ModalType = 'OPEN_MODAL_PLUS' | 'OPEN_MODAL_MINUS' | 'OPEN_MODAL_CHA
 export type ToLocalType = {
     arrayOfTasks: Task[];
     comment: string;
+    appTheme: 'dark' | 'light';
 }
 
 export type RootState = {
@@ -45,10 +52,11 @@ const initialState: RootState = {
     Local: {
         arrayOfTasks: [],
         comment: '',
+        appTheme: 'light'
     },
     isFromLocal: true,
     activeMenuID: 0,
-    modalType: 'IS_NOT_OPEN'
+    modalType: 'IS_NOT_OPEN',
 }
 
 
@@ -90,6 +98,24 @@ export const rootReducer: Reducer<RootState, AnyAction> = (state = initialState,
             return {
                 ...state,
                 Local: changeReducer(state.Local, action),
+                isFromLocal: false
+            }
+        case CHANGE_THEME:
+            return {
+                ...state,
+                Local: themeReducer(state.Local, action),
+                isFromLocal: false
+            }
+        case CHANGE_PRIORITY_UP:
+            return {
+                ...state,
+                Local: upPriorityReducer(state.Local, action),
+                isFromLocal: false
+            }
+        case CHANGE_PRIORITY_DOWN:
+            return {
+                ...state,
+                Local: downPriorityReducer(state.Local, action),
                 isFromLocal: false
             }
         default:

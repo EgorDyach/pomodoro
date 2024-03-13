@@ -55,3 +55,8 @@
 .mainInfoForm__submit:hover {
     background-color: #899441;
 }
+
+.darkTheme .mainInfoForm__input {
+    background: rgba(102, 102, 102, 0.4);
+    color: #F4F4F4;
+}
