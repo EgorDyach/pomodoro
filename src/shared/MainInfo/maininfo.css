@@ -31,3 +31,13 @@
 .mainInfo__title {
     margin-bottom: 10px;
 }
+
+.mainInfo__totalTime {
+font-family: 'display300';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 17px;
+
+color: #999999;
+}
