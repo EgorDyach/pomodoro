@@ -1,6 +1,6 @@
 import './icon.css';
 import classNames from 'classnames';
-import { IconFocus, IconHome, IconMenu, IconMinus, IconPen, IconPlus, IconPomidor, IconStatistic, IconStop, IconTime, IconTrash, IconUp } from '../../assets/Icons';
+import { IconFocus, IconHome, IconMenu, IconMinus, IconPen, IconPlus, IconPomidor, IconSettings, IconStatistic, IconStop, IconTime, IconTrash, IconUp } from '../../assets/Icons';
 
 export enum EIcons {
   focus = "focus",
@@ -15,6 +15,7 @@ export enum EIcons {
   time = "time",
   trash = "trash",
   up = "up",
+  settings = "settings"
 }
 interface IIconProps {
   typeOfIcon: EIcons;
@@ -41,6 +42,7 @@ export function Icon({typeOfIcon, className, size, fill}: IIconProps) {
       {EIcons.time === typeOfIcon && <IconTime />}
       {EIcons.trash === typeOfIcon && <IconTrash />}
       {EIcons.up === typeOfIcon && <IconUp />}
+      {EIcons.settings === typeOfIcon && <IconSettings />}
     </span>
   );
 }

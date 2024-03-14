@@ -42,6 +42,12 @@ export function Header() {
           <button className="toggle" onClick={handleChangeTheme}>
             <span></span>
           </button>
+          <Link to={'/settings'}>
+                <span className='header__link header__link-settings'>
+                  <Icon typeOfIcon={EIcons.settings} fill={appTheme === 'dark' ? '#f4f4f4' : '#292D32'} size={24} />
+                  {/* <Text As={'span'} size={16} color={appTheme === 'dark' ? '#EE5237' : '#DC3E22'} weight={400}>Статистика</Text> */}
+                </span>
+              </Link>
         </div>
       </Container>
     </header>

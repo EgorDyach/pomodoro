@@ -10,3 +10,4 @@ export * from './IconTime';
 export * from './IconStop';
 export * from './IconHome';
 export * from './IconUp';
+export * from './IconSettings';

@@ -6,6 +6,7 @@ import { createStore } from 'redux';
 import { Provider } from "react-redux";
 import { composeEnhancers, rootReducer } from './store/store';
 import { Layout } from './shared/Layout';
+import { SettingsPage } from './pages/SettingsPage';
 
 const store = createStore(
   rootReducer,
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path='/' element={<MainPage />} />
             <Route path='statistic' element={<StatisticPage />} />
+            <Route path='settings' element={<SettingsPage />} />
             <Route path='*' element={<Navigate to={'/'} />} />
           </Routes>
         </Layout>

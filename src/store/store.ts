@@ -1,6 +1,5 @@
 import { modalReducer } from './modal/reducer';
-import { Reducer } from "react";
-import { AnyAction } from "redux";
+import { Reducer } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { AddTaskReducer } from "./MainForm/reducer";
 import { plusReducer } from './modal/plusReducer';
@@ -48,7 +47,8 @@ export type RootState = {
     activeMenuID: number;
     modalType: ModalType;
 }
-const initialState: RootState = {
+
+export const initialState: RootState = {
     Local: {
         arrayOfTasks: [],
         comment: '',
@@ -59,10 +59,7 @@ const initialState: RootState = {
     modalType: 'IS_NOT_OPEN',
 }
 
-
-
-
-export const rootReducer: Reducer<RootState, AnyAction> = (state = initialState, action) => {
+export const rootReducer: Reducer<RootState> = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TASK:
             return { ...state, Local: AddTaskReducer(state.Local, action), isFromLocal: false };
