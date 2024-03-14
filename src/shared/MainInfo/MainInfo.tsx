@@ -6,9 +6,9 @@ import './maininfo.css';
 import { RootState, Task } from '../../store/store';
 
 
-const TIME_OF_TASK = 25
 
 export function MainInfo() {
+  const TIME_OF_TASK = useSelector<RootState, number>(state => state.Local.timeOfTomato)
   let sumOfMinutes = 0
   const appTheme = useSelector<RootState, string>(state => state.Local.appTheme)
   const tasks = useSelector<RootState, Task[]>(state => state.Local.arrayOfTasks);
@@ -23,7 +23,7 @@ export function MainInfo() {
     countOfHours = 99
     countOfMinutes = 0
     isMore = true;
-  } 
+  }
   if (countOfHours) {
     if (countOfHours === 1) {
       wordOfHours = 'час'
@@ -36,12 +36,22 @@ export function MainInfo() {
   let wordOfMinutes = '';
   console.log(countOfMinutes.toString().slice(1))
   if (countOfMinutes) {
-    if (countOfMinutes.toString().slice(1) === '1') {
-      wordOfMinutes = 'минута'
-    } else if (Number(countOfMinutes.toString().slice(1)) >= 5 || Number(countOfMinutes.toString().slice(1)) === 0) {
-      wordOfMinutes = 'минут'
+    if (countOfMinutes.toString().slice(1)) {
+      if (countOfMinutes.toString().slice(1) === '1') {
+        wordOfMinutes = 'минута'
+      } else if (Number(countOfMinutes.toString().slice(1)) >= 5 || Number(countOfMinutes.toString().slice(1)) === 0) {
+        wordOfMinutes = 'минут'
+      } else {
+        wordOfMinutes = 'минуты'
+      }
     } else {
-      wordOfMinutes = 'минуты'
+      if (countOfMinutes.toString() === '1') {
+        wordOfMinutes = 'минута'
+      } else if (Number(countOfMinutes.toString()) >= 5) {
+        wordOfMinutes = 'минут'
+      } else {
+        wordOfMinutes = 'минуты'
+      }
     }
   }
   return (
@@ -68,8 +78,8 @@ export function MainInfo() {
         <MainInfoForm />
         <MainList />
         <p className='mainInfo__totalTime'>
-          {countOfHours !== 0 && countOfHours} {wordOfHours !== '' && wordOfHours+' '} 
-           
+          {countOfHours !== 0 && countOfHours} {wordOfHours !== '' && wordOfHours + ' '}
+
           {countOfMinutes !== 0 && countOfMinutes} {wordOfMinutes !== '' && wordOfMinutes}
           {isMore && 'и более...'}
           {/* {sumOfMinutes - Math.floor(sumOfMinutes / 60) * 60} минут */}

@@ -1,13 +1,129 @@
-import  './settingspage.css';
+import './settingspage.css';
 import { Text } from '../../components/Text';
 import { Container } from '../../components/Container';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, ToLocalType } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
 
 export function SettingsPage() {
+  const state = useSelector<RootState, ToLocalType>(state => state.Local)
+  const [timeOfTomato, setTimeOfTomato] = useState(state.timeOfTomato)
+  const [timeOfLittleBreak, setTimeOfLittleBreak] = useState(state.timeOfLittleBreak)
+  const [timeOfLongBreak, setTimeOfLongBreak] = useState(state.timeOfLongBreak)
+  const [isNotificationsOn, setIsNotificationsOn] = useState(state.isNotificationsOn)
+  const [isDisabled, setIsDisabled] = useState(true)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const appTheme = state.appTheme
+  const handleClick = () => {
+    dispatch({ type: "CHANGE_SETTINGS", timeOfTomato, timeOfLittleBreak, timeOfLongBreak, isNotificationsOn });
+    setIsDisabled(true);
+    alert('Успешно!');
+    navigate('/')
+  }
+  useEffect(() => {
+
+    if (timeOfTomato === 0 || timeOfLongBreak === 0 || timeOfLittleBreak === 0) {
+      setIsDisabled(true)
+    } else if ((timeOfLongBreak !== state.timeOfLongBreak) || (timeOfTomato !== state.timeOfTomato) || (timeOfLittleBreak !== state.timeOfLittleBreak) || (state.isNotificationsOn !== isNotificationsOn)) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }, [timeOfTomato, timeOfLongBreak, timeOfLittleBreak, isNotificationsOn])
+  useEffect(() => {
+    setIsDisabled(true)
+    setIsNotificationsOn(state.isNotificationsOn)
+    setTimeOfLittleBreak(state.timeOfLittleBreak)
+    setTimeOfLongBreak(state.timeOfLongBreak)
+    setTimeOfTomato(state.timeOfTomato)
+  }, [state.timeOfLongBreak, state.timeOfTomato, state.timeOfLittleBreak, state.isNotificationsOn])
+  const handleChange = (event: (React.ChangeEvent<HTMLInputElement>)) => {
+    const value = Number(event.target.value);
+    const typeOfInput = event.target.getAttribute('data-settingsItem')
+    switch (typeOfInput) {
+      case 'timeOfTomato':
+        if (Number.isInteger(value)) {
+          if (value < 0 || value > 300) {
+            setTimeOfTomato(timeOfTomato);
+          } else {
+            setTimeOfTomato(value);
+          }
+        }
+        break;
+      case 'timeOfLittleBreak':
+        if (Number.isInteger(value)) {
+          if (value < 0 || value > 60) {
+            setTimeOfLittleBreak(timeOfLittleBreak);
+          } else {
+            setTimeOfLittleBreak(value);
+          }
+        }
+        break;
+      case 'timeOfLongBreak':
+        if (Number.isInteger(value)) {
+          if (value < 0 || value > 240) {
+            setTimeOfLongBreak(timeOfLongBreak);
+          } else {
+            setTimeOfLongBreak(value);
+          }
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
-    <div>
+    <div className='settingsPage'>
       <Container>
-        <Text As='h2' size={30} color='#f4f4f4'>Настройки</Text>
-        
+        <Text As='h2' weight={700} size={30} color={appTheme === 'dark' ? '#f4f4f4' : '#333'}>Настройки</Text>
+        <ul className="settings__list">
+          <li className="settings__item">
+            <label className='settings__item'>
+              <Text As='p' size={16} weight={300} color={appTheme === 'dark' ? '#ffffff' : '#333'} className='settings__item-label'>
+                Минут в одном помидоре:
+              </Text>
+              <div className="settings__inputs">
+                <input type='number' className='settings__item-input' data-settingsItem='timeOfTomato' value={timeOfTomato} onChange={handleChange} />
+                <input type='range' data-settingsItem='timeOfTomato' value={timeOfTomato} onChange={handleChange} max={300} min={1} />
+              </div>
+            </label>
+          </li>
+          <li className="settings__item">
+            <label className='settings__item'>
+              <Text As='p' size={16} weight={300} color={appTheme === 'dark' ? '#ffffff' : '#333'} className='settings__item-label'>
+                Минут в коротком перерыве
+              </Text>
+              <div className="settings__inputs">
+                <input type='number' className='settings__item-input' data-settingsItem='timeOfLittleBreak' value={timeOfLittleBreak} onChange={handleChange} />
+                <input type='range' data-settingsItem='timeOfLittleBreak' value={timeOfLittleBreak} onChange={handleChange} max={60} min={1} />
+              </div>
+            </label>
+          </li>
+          <li className="settings__item">
+            <label className='settings__item'>
+              <Text As='p' size={16} weight={300} color={appTheme === 'dark' ? '#ffffff' : '#333'} className='settings__item-label'>
+                Минут в длинном перерыве
+              </Text>
+              <div className="settings__inputs">
+                <input type='number' className='settings__item-input' data-settingsItem="timeOfLongBreak" value={timeOfLongBreak} onChange={handleChange} />
+                <input type='range' data-settingsItem="timeOfLongBreak" value={timeOfLongBreak} onChange={handleChange} max={240} min={1} />
+              </div>
+            </label>
+          </li>
+          <li className="settings__item">
+            <label className='settings__item'>
+              <Text As='p' size={16} weight={300} color={appTheme === 'dark' ? '#ffffff' : '#333'} className='settings__item-label'>
+                Уведомления об окончание помидора
+              </Text>
+              <button onClick={() => setIsNotificationsOn(!isNotificationsOn)} className={ isNotificationsOn ? 'settings__toggle settings__toggle-active' : 'settings__toggle'} ><span></span></button>
+            </label>
+          </li>
+        </ul>
+          <button onClick={handleClick} disabled={isDisabled} className={isDisabled ? 'settings__submit settings__submit-disabled' : 'settings__submit'} ><Text As='span' size={20} weight={500} color={isDisabled ? (appTheme === 'dark' ? '#555' : '#bbb') :'#fff'}>Сохранить</Text></button>
       </Container>
     </div>
   );

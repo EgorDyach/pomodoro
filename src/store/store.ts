@@ -9,11 +9,8 @@ import { changeReducer } from './modal/changeReducer';
 import { themeReducer } from './Theme/reducer';
 import { upPriorityReducer } from './menu/upPriority';
 import { downPriorityReducer } from './menu/downPriority';
-import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_TIME_OF_TOMATO, CHANGE_TIME_OF_LITTLE_BREAK, CHANGE_TIME_OF_LONG_BREAK, SET_NOTIFICATION_TRUE } from './dataForStore';
-import { changeTomatoTime } from './timeSettings/changeTomatoTime';
-import { changeLittleBreakTime } from './timeSettings/changeLittleBreakTime';
-import { changeLongBreakTime } from './timeSettings/changeLongBreakTime';
-import { notificatonsReducer } from './notifications/reducer';
+import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS } from './dataForStore';
+import { changeSettings } from './timeSettings/changeSettings';
 
 export type Task = {
     title: string;
@@ -45,9 +42,9 @@ export const initialState: RootState = {
         arrayOfTasks: [],
         comment: '',
         appTheme: 'light',
-        timeOfTomato: 1500,
-        timeOfLittleBreak: 300,
-        timeOfLongBreak: 1200,
+        timeOfTomato: 25,
+        timeOfLittleBreak: 5,
+        timeOfLongBreak: 20,
         isNotificationsOn: true,
     },
     isFromLocal: true,
@@ -109,32 +106,10 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
                 isFromLocal: false
             }
 
-        case CHANGE_TIME_OF_TOMATO:
+        case CHANGE_SETTINGS:
             return {
                 ...state,
-                Local: changeTomatoTime(state.Local, action),
-                isFromLocal: false
-
-            }
-        case CHANGE_TIME_OF_LITTLE_BREAK:
-            return {
-                ...state,
-                Local: changeLittleBreakTime(state.Local, action),
-                isFromLocal: false
-
-            }
-        case CHANGE_TIME_OF_LONG_BREAK:
-            return {
-                ...state,
-                Local: changeLongBreakTime(state.Local, action),
-                isFromLocal: false
-
-            }
-
-        case SET_NOTIFICATION_TRUE:
-            return {
-                ...state,
-                Local: notificatonsReducer(state.Local, action),
+                Local: changeSettings(state.Local, action),
                 isFromLocal: false
             }
 
