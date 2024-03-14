@@ -1,7 +1,7 @@
 import { Reducer } from "react"
 import { AnyAction } from "redux"
-import { ADD_TASK, ToLocalType } from "../store"
-
+import {  ToLocalType } from "../store"
+import { ADD_TASK } from "../dataForStore"
 
 
 export const AddTaskReducer: Reducer<ToLocalType, AnyAction> = (state, action) => {

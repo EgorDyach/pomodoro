@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './maininfoform.css';
 import { useSelector } from 'react-redux';
-import { ADD_TASK, RootState, Task } from '../../../store/store';
+import { RootState, Task } from '../../../store/store';
 import { useDispatch } from 'react-redux';
 import { Text } from '../../../components/Text';
 const MAX = 10_000_000;
@@ -27,7 +27,7 @@ export function MainInfoForm() {
   const handleSubmit = () => {
     event?.preventDefault();
     if (valueOfTask.length > 2) {
-      dispatch({ type: ADD_TASK, newTask: { id: generateId(), title: valueOfTask, count: 1 }, isFromLocal: false })
+      dispatch({ type: "ADD_TASK", newTask: { id: generateId(), title: valueOfTask, count: 1 }, isFromLocal: false })
       setValueOfTask('')
       setError('')
     } else {

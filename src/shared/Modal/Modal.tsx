@@ -1,10 +1,11 @@
 import  './modal.css';
 import { useSelector } from 'react-redux';
-import { IS_NOT_OPEN, ModalType, OPEN_MODAL_CHANGE, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, OPEN_MODAL_PLUS, RootState, Task } from '../../store/store';
+import { ModalType, RootState, Task } from '../../store/store';
 import { ModalContentPlus } from './ModalContentPlus';
 import { ModalContentMinus } from './ModalContentMinus';
 import { ModalContentChange } from './ModalContentChange';
 import { ModalContentDelete } from './ModalContentDelete';
+import { IS_NOT_OPEN, OPEN_MODAL_CHANGE, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, OPEN_MODAL_PLUS } from '../../store/dataForStore';
 
 export function Modal() {
   const modalType = useSelector<RootState, ModalType>(state => state.modalType);

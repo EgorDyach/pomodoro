@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './modalcontentplus.css';
 import { Text } from '../../../components/Text';
-import { SET_ACTIVE_MENU_ID, Task } from '../../../store/store';
+import { Task } from '../../../store/store';
 import { useDispatch } from 'react-redux';
+import { handleCancel } from '../handleCancel';
 
 export function ModalContentPlus({active}: {active: Task}) {
   const [number, setNumber] = useState<number>(1);
@@ -17,14 +18,9 @@ export function ModalContentPlus({active}: {active: Task}) {
       }
     }
   };
-  const handleCancel = () => {
-    dispatch({type: "IS_NOT_OPEN"})
-    document.body.style.overflow = 'scroll'
-    dispatch({type: SET_ACTIVE_MENU_ID, activeMenuID: 0})
-  }
   const handleSubmit = () => {
     dispatch({type: 'TASK_COUNT_PLUS', countPlus: number, idOfTask: active.id})
-    handleCancel();
+    handleCancel(dispatch);
   }
   return (
     <div className='modalcontent__plus modalcontent'>
@@ -33,7 +29,7 @@ export function ModalContentPlus({active}: {active: Task}) {
           <Text As='span' size={20} weight={300} color='#999'>Сейчас "Помидорок": {active.count}</Text>
           <input className='modalcontent__input' min={0} max={99 - active.count} type="number" onChange={handleChange} value={number} />
           <button className='modalcontent__submit' onClick={handleSubmit}>Увеличить</button>
-          <button className='modalcontent__cancel' onClick={handleCancel}>Отмена</button>
+          <button className='modalcontent__cancel' onClick={() => {handleCancel(dispatch)}}>Отмена</button>
     </div>
   );
 }

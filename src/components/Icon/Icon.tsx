@@ -1,6 +1,7 @@
 import './icon.css';
 import classNames from 'classnames';
 import { IconFocus, IconHome, IconMenu, IconMinus, IconPen, IconPlus, IconPomidor, IconSettings, IconStatistic, IconStop, IconTime, IconTrash, IconUp } from '../../assets/Icons';
+import { useEffect } from 'react';
 
 export enum EIcons {
   focus = "focus",
@@ -25,6 +26,9 @@ interface IIconProps {
 }
 
 export function Icon({typeOfIcon, className, size, fill}: IIconProps) {
+  useEffect(() => {
+    console.log(fill)
+  }, [fill])
   const classes = classNames(
     `img-wh-${size}`, className, `imgIcon`
   )
@@ -42,7 +46,7 @@ export function Icon({typeOfIcon, className, size, fill}: IIconProps) {
       {EIcons.time === typeOfIcon && <IconTime />}
       {EIcons.trash === typeOfIcon && <IconTrash />}
       {EIcons.up === typeOfIcon && <IconUp />}
-      {EIcons.settings === typeOfIcon && <IconSettings />}
+      {EIcons.settings === typeOfIcon && <IconSettings fill={fill} />}
     </span>
   );
 }

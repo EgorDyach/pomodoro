@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './modalcontentchange.css';
 import { useDispatch } from 'react-redux';
-import { SET_ACTIVE_MENU_ID, Task } from '../../../store/store';
+import { Task } from '../../../store/store';
 import { Text } from '../../../components/Text';
+import { handleCancel } from '../handleCancel';
 
 export function ModalContentChange({ active }: { active: Task }) {
   const [newNameOfTask, setNewNameOfTask] = useState(active.title);
@@ -11,17 +12,12 @@ export function ModalContentChange({ active }: { active: Task }) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewNameOfTask(event.target.value)
   };
-  const handleCancel = () => {
-    dispatch({ type: "IS_NOT_OPEN" })
-    document.body.style.overflow = 'scroll'
-    dispatch({ type: SET_ACTIVE_MENU_ID, activeMenuID: 0 })
-  }
   const handleSubmit = () => {
     if (newNameOfTask.length <= 2) {
       setError('Длина должна быть не меньше 2 символов!')
     } else {
       dispatch({ type: 'TASK_CHANGE_NAME', newName: newNameOfTask, idOfTask: active.id })
-      handleCancel();
+      handleCancel(dispatch);
     }
   }
   return (
@@ -30,7 +26,7 @@ export function ModalContentChange({ active }: { active: Task }) {
       <input className='modalcontent__input modalcontent__input-change' onChange={handleChange} value={newNameOfTask} />
       {error !== '' && <Text As='span' color='red' size={14}>{error}</Text>}
       <button className='modalcontent__submit' onClick={handleSubmit}>Изменить</button>
-      <button className='modalcontent__cancel' onClick={handleCancel}>Отмена</button>
+      <button className='modalcontent__cancel' onClick={() => handleCancel(dispatch)}>Отмена</button>
     </div>
   );
 }
