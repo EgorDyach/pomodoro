@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { composeEnhancers, rootReducer } from './store/store';
 import { Layout } from './shared/Layout';
 import { SettingsPage } from './pages/SettingsPage';
+import { Modal } from './shared/Modal';
 
 const store = createStore(
   rootReducer,
@@ -25,6 +26,7 @@ function App() {
             <Route path='settings' element={<SettingsPage />} />
             <Route path='*' element={<Navigate to={'/'} />} />
           </Routes>
+          <Modal />
         </Layout>
       </BrowserRouter>
     </Provider>

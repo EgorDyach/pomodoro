@@ -23,6 +23,11 @@ export function SettingsPage() {
     alert('Успешно!');
     navigate('/')
   }
+
+  const handleReloadWeb = () => {
+    dispatch({type: "MODAL_OPEN_DELETE_DATA"})
+  }
+
   useEffect(() => {
 
     if (timeOfTomato === 0 || timeOfLongBreak === 0 || timeOfLittleBreak === 0) {
@@ -124,6 +129,7 @@ export function SettingsPage() {
           </li>
         </ul>
           <button onClick={handleClick} disabled={isDisabled} className={isDisabled ? 'settings__submit settings__submit-disabled' : 'settings__submit'} ><Text As='span' size={20} weight={500} color={isDisabled ? (appTheme === 'dark' ? '#555' : '#bbb') :'#fff'}>Сохранить</Text></button>
+          <button onClick={handleReloadWeb} className='settings__reload'>Удалить все данные</button>
       </Container>
     </div>
   );

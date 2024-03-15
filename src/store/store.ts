@@ -9,7 +9,7 @@ import { changeReducer } from './modal/changeReducer';
 import { themeReducer } from './Theme/reducer';
 import { upPriorityReducer } from './menu/upPriority';
 import { downPriorityReducer } from './menu/downPriority';
-import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS } from './dataForStore';
+import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA } from './dataForStore';
 import { changeSettings } from './timeSettings/changeSettings';
 
 export type Task = {
@@ -18,7 +18,7 @@ export type Task = {
     id: number;
 }
 
-export type ModalType = 'OPEN_MODAL_PLUS' | 'OPEN_MODAL_MINUS' | 'OPEN_MODAL_CHANGE' | 'OPEN_MODAL_DELETE' | 'IS_NOT_OPEN'
+export type ModalType = 'OPEN_MODAL_PLUS' | 'OPEN_MODAL_MINUS' | 'OPEN_MODAL_CHANGE' | 'OPEN_MODAL_DELETE' | 'IS_NOT_OPEN' | 'MODAL_OPEN_DELETE_DATA';
 
 export type ToLocalType = {
     arrayOfTasks: Task[];
@@ -66,6 +66,7 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
         case OPEN_MODAL_PLUS:
         case OPEN_MODAL_DELETE:
         case OPEN_MODAL_MINUS:
+        case MODAL_OPEN_DELETE_DATA:
         case IS_NOT_OPEN:
             return modalReducer(state, action);
 

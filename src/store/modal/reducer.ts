@@ -1,7 +1,7 @@
 import { Reducer } from "react"
 import { AnyAction } from "redux"
 import { RootState } from "../store"
-import {OPEN_MODAL_CHANGE, OPEN_MODAL_MINUS, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, IS_NOT_OPEN} from "../dataForStore"
+import {OPEN_MODAL_CHANGE, OPEN_MODAL_MINUS, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, IS_NOT_OPEN, MODAL_OPEN_DELETE_DATA} from "../dataForStore"
 export const modalReducer: Reducer<RootState, AnyAction> = (state, action) => {
     switch (action.type) {
         case IS_NOT_OPEN:
@@ -28,6 +28,11 @@ export const modalReducer: Reducer<RootState, AnyAction> = (state, action) => {
             return {
                 ...state,
                 modalType: 'OPEN_MODAL_PLUS'
+            }
+        case MODAL_OPEN_DELETE_DATA:
+            return {
+                ...state,
+                modalType: 'MODAL_OPEN_DELETE_DATA'
             }
         default:
             return state

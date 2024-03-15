@@ -6,6 +6,7 @@
     border: 2px solid transparent;
     transition: .3s ease-in-out;
     cursor: pointer;
+    margin-bottom: 40px;
 }
 
 .settings__submit-disabled {
@@ -91,8 +92,20 @@
 .settings__toggle-active {
     border-color: #A8B64F;
 }
-.settingsPage .container {
 
+.settingsPage {
+    padding: 40px 60px;
+}
+
+.settingsPage .container {
     display: flex;
     flex-direction: column;
+}
+
+.settings__reload {
+    padding: 20px 40px;
+    background-color: #111;
+    color: #fff;
+    margin: 0 auto;
+    cursor: pointer;
 }
