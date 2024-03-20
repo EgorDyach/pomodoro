@@ -12,20 +12,27 @@ export function Header() {
   const { pathname } = useLocation()
   const appTheme = useSelector<RootState, string>(state => state.Local.appTheme)
   const dispatch = useDispatch();
+  const isPlaying = useSelector<RootState, boolean>(state => state.isPlayingTimer);
   const handleChangeTheme = () => {
     const newTheme = appTheme === 'dark' ? 'light' : 'dark';
-    dispatch({type: 'CHANGE_THEME', newTheme: newTheme})
+    dispatch({ type: 'CHANGE_THEME', newTheme: newTheme })
   }
   return (
     <header className='header'>
       <Container>
         <Logo />
         <div className="headerControls">
-          {pathname === '/'
+          {isPlaying &&
+            <span className='header__link header__link-disabled'>
+              <Icon typeOfIcon={EIcons.statistic} fill='#999' size={24} />
+              <Text As={'span'} size={16} color={isPlaying ? '#999' : (appTheme === 'dark' ? '#EE5237' : '#DC3E22')} weight={400} className='header__link-text'>Статистика</Text>
+            </span>
+          }
+          {!isPlaying && (pathname === '/'
             ? (
               <Link to={'/statistic'}>
                 <span className='header__link'>
-                  <Icon typeOfIcon={EIcons.statistic} size={24} />
+                  <Icon typeOfIcon={EIcons.statistic} fill='#DC3E22' size={24} />
                   <Text As={'span'} size={16} color={appTheme === 'dark' ? '#EE5237' : '#DC3E22'} weight={400}>Статистика</Text>
                 </span>
               </Link>
@@ -38,16 +45,21 @@ export function Header() {
                 </span>
               </Link>
             )
-          }
-          <button className="toggle" onClick={handleChangeTheme}>
+          )}
+          <button className="toggle" disabled={isPlaying} onClick={handleChangeTheme}>
             <span></span>
           </button>
-          <Link to={'/settings'}>
+          {
+            isPlaying ?
+              <span className='header__link header__link-settings-disabled header__link-settings'>
+                <Icon typeOfIcon={EIcons.settings} fill={isPlaying ? '#999' : (appTheme === 'dark' ? '#f4f4f4' : '#292D32')} size={24} />
+              </span> :
+              <Link to={'/settings'}>
                 <span className='header__link header__link-settings'>
                   <Icon typeOfIcon={EIcons.settings} fill={appTheme === 'dark' ? '#f4f4f4' : '#292D32'} size={24} />
-                  {/* <Text As={'span'} size={16} color={appTheme === 'dark' ? '#EE5237' : '#DC3E22'} weight={400}>Статистика</Text> */}
                 </span>
               </Link>
+          }
         </div>
       </Container>
     </header>

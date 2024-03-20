@@ -9,6 +9,7 @@ export function Menu({ task }: { task: Task }) {
   const count = task.count
   const dispatch = useDispatch();
   const tasks = useSelector<RootState, Task[]>(state => state.Local.arrayOfTasks)
+  const isPlaying = useSelector<RootState, boolean>(state => state.isPlayingTimer)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const target = event?.target as HTMLElement;
     const btnType = target.closest('.menuItem__btn')?.getAttribute('data-type');
@@ -50,8 +51,8 @@ export function Menu({ task }: { task: Task }) {
             </Text>
           </button>
         </li>
-        <li className={count > 1 ? 'menuItem' : 'menuItem menuItem-disabled'}>
-          <button disabled={!(count > 1)} className='menuItem__btn' data-type={"menuMinus"} onClick={handleClick}>
+        <li className={(count > task.activeTomato) ? 'menuItem' : 'menuItem menuItem-disabled'}>
+          <button disabled={!(count > task.activeTomato)} className='menuItem__btn' data-type={"menuMinus"} onClick={handleClick}>
             <Icon typeOfIcon={EIcons.minus} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
               Уменьшить помидорки
@@ -66,24 +67,24 @@ export function Menu({ task }: { task: Task }) {
             </Text>
           </button>
         </li>
-        <li className={tasks[0]?.id === task.id ? 'menuItem menuItem-disabled' : "menuItem"}>
-          <button disabled={tasks[0].id === task.id} className='menuItem__btn' data-type={"menuUpPriority"} onClick={handleClick}>
+        <li className={(tasks[0]?.id === task.id) || isPlaying ? 'menuItem menuItem-disabled' : "menuItem"}>
+          <button disabled={tasks[0].id === task.id || isPlaying} className='menuItem__btn' data-type={"menuUpPriority"} onClick={handleClick}>
             <Icon fill='#A8B64F' typeOfIcon={EIcons.up} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
               Поднять приоритет
             </Text>
           </button>
         </li>
-        <li className={tasks[tasks.length-1]?.id === task.id ? 'menuItem menuItem-disabled' : "menuItem"}>
-          <button className='menuItem__btn' disabled={tasks[tasks.length-1].id === task.id} data-type={"menuDownPriority"} onClick={handleClick}>
+        <li className={tasks[tasks.length-1]?.id === task.id || isPlaying ? 'menuItem menuItem-disabled' : "menuItem"}>
+          <button className='menuItem__btn' disabled={tasks[tasks.length-1].id === task.id || isPlaying} data-type={"menuDownPriority"} onClick={handleClick}>
             <Icon typeOfIcon={EIcons.up} size={18} className='rotate180' fill='#A8B64F' />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
               Опустить приоритет
             </Text>
           </button>
         </li>
-        <li className={'menuItem'}>
-          <button className='menuItem__btn' data-type={"menuDelete"} onClick={handleClick}>
+        <li className={isPlaying ? 'menuItem menuItem-disabled' : 'menuItem'}>
+          <button disabled={isPlaying} className='menuItem__btn' data-type={"menuDelete"} onClick={handleClick}>
             <Icon typeOfIcon={EIcons.trash} size={18} />
             <Text As='span' size={16} weight={300} className='menuItem__text' color='#999999'>
               Удалить

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './maininfoform.css';
 import { useSelector } from 'react-redux';
 import { RootState, Task } from '../../../store/store';
@@ -11,6 +11,8 @@ export function MainInfoForm() {
   const [valueOfTask, setValueOfTask] = useState('');
   const [error, setError] = useState('');
   const tasks = useSelector<RootState, Task[]>(state => state.Local.arrayOfTasks)
+  const timeOfTask = useSelector<RootState, number>(state => state.Local.timeOfTomato)
+  const isPlaying = useSelector<RootState, boolean>(state => state.isPlayingTimer)
   const dispatch = useDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValueOfTask(event.target.value)
@@ -27,18 +29,23 @@ export function MainInfoForm() {
   const handleSubmit = () => {
     event?.preventDefault();
     if (valueOfTask.length > 2) {
-      dispatch({ type: "ADD_TASK", newTask: { id: generateId(), title: valueOfTask, count: 1 }, isFromLocal: false })
+      dispatch({ type: "ADD_TASK", newTask: { id: generateId(), title: valueOfTask, count: 1, activeTomato: 1, timeOfTask: timeOfTask*60}, isFromLocal: false})
       setValueOfTask('')
       setError('')
     } else {
       setError('Длина добавляемой задачи должна быть больше 2 символов!')
     }
   }
+
+  useEffect(() => {
+    setValueOfTask('')
+  }, [isPlaying])
+
   return (
     <form className='mainInfoForm' onSubmit={handleSubmit}>
-      <input type={'text'} className='mainInfoForm__input' value={valueOfTask} onChange={handleChange} placeholder='Название задачи' />
+      <input type={'text'} disabled={isPlaying} className='mainInfoForm__input' value={valueOfTask} onChange={handleChange} placeholder='Название задачи' />
       {error !== '' && <Text As='span' color='red' size={14}>{error}</Text>}
-      <button type={'submit'} className='mainInfoForm__submit' >Добавить</button>
+      <button disabled={isPlaying} type={'submit'} className='mainInfoForm__submit' >Добавить</button>
     </form>
   );
 }

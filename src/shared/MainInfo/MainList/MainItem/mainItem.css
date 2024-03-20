@@ -32,6 +32,11 @@
 
 .mainItem__title {
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 300px;
+    
 }
 
 .mainItem__info {

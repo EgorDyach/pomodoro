@@ -15,12 +15,13 @@ export function Layout({children}: {children: ReactNode}) {
       const stateFromLocal = JSON.parse(stringFromLocal)
       dispatch({type: 'SET_FROM_LOCAL', stateFromLocal})
     }
-  }, [stringFromLocal, dispatch])
+  }, [dispatch, stringFromLocal])
   useEffect(() => {
     if (!state.isFromLocal) {
-      saveState(state)
+      dispatch({type: "SAVED_TO_LOCAL"})
+      saveState(state.Local)
     }
-  }, [state])
+  }, [dispatch, state.Local, state.isFromLocal])
   return (
     <div className={state.Local.appTheme === "dark" ? 'darkTheme layout' : 'lightTheme layout'}>
       {children}

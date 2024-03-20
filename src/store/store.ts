@@ -9,13 +9,17 @@ import { changeReducer } from './modal/changeReducer';
 import { themeReducer } from './Theme/reducer';
 import { upPriorityReducer } from './menu/upPriority';
 import { downPriorityReducer } from './menu/downPriority';
-import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA } from './dataForStore';
+import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK } from './dataForStore';
 import { changeSettings } from './timeSettings/changeSettings';
+import { endOfTaskTomato } from './MainForm/endOfTaskTomato';
+import { saveTimeOfTask } from './MainForm/saveTimeOfTask';
 
 export type Task = {
     title: string;
     count: number;
     id: number;
+    activeTomato: number;
+    timeOfTask: number;
 }
 
 export type ModalType = 'OPEN_MODAL_PLUS' | 'OPEN_MODAL_MINUS' | 'OPEN_MODAL_CHANGE' | 'OPEN_MODAL_DELETE' | 'IS_NOT_OPEN' | 'MODAL_OPEN_DELETE_DATA';
@@ -28,13 +32,16 @@ export type ToLocalType = {
     timeOfLittleBreak: number;
     timeOfLongBreak: number;
     isNotificationsOn: boolean;
-}
+    frequencyLongBreak: number;
+}  
 
 export type RootState = {
     Local: ToLocalType;
     isFromLocal: boolean;
     activeMenuID: number;
     modalType: ModalType;
+    isPlayingTimer: boolean;
+    isStartedTimer: boolean;
 }
 
 export const initialState: RootState = {
@@ -46,11 +53,13 @@ export const initialState: RootState = {
         timeOfLittleBreak: 5,
         timeOfLongBreak: 20,
         isNotificationsOn: true,
+        frequencyLongBreak: 4
     },
     isFromLocal: true,
     activeMenuID: 0,
     modalType: 'IS_NOT_OPEN',
-
+    isPlayingTimer: false,
+    isStartedTimer: false
 }
 
 export const rootReducer: Reducer<RootState> = (state = initialState, action) => {
@@ -118,6 +127,29 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
             return {
                 ...state,
                 Local: themeReducer(state.Local, action),
+                isFromLocal: false
+            }
+
+        case SET_IS_PLAYING_TIMER:
+            return {
+                ...state,
+                isPlayingTimer: action.isPlaying,
+                isStartedTimer: action.isStarted,
+            }
+        case END_OF_TASK_TOMATO:
+            return {
+                ...state,
+                Local: endOfTaskTomato(state.Local, action),
+                isPlayingTimer: false,
+                isStartedTimer: false,
+                isFromLocal: false
+            }
+        case SAVE_TIME_OF_TASK:
+            return {
+                ...state,
+                Local: saveTimeOfTask(state.Local, action),
+                // isStartedTimer: action.isStarted,
+                isPlayingTimer: action.isPlaying,
                 isFromLocal: false
             }
         default:

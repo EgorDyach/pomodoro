@@ -1,0 +1,21 @@
+.mainTimer__header {
+    padding: 19px 40px;
+    width: 100%;
+    background-color: #C4C4C4;
+    display: flex;
+    transition: .3s ease-in-out;
+
+    justify-content: space-between;
+}
+
+.mainTimer__header-title, .mainTimer__header-count {
+    margin: 0;
+}
+
+.darkTheme .mainTimer__header {
+    background-color: #666666;
+}
+
+.mainTimer__header-playing, .darkTheme .mainTimer__header-playing {
+ background-color: #DC3E22;   
+}

@@ -49,7 +49,7 @@
     line-height: 17px;
     letter-spacing: 0em;
     text-align: center;
-    transition: background-color .3s ease-in-out;
+    transition: background-color .3s ease-in-out, color .3s ease-in-out;
 }
 
 .mainInfoForm__submit:hover {
@@ -59,4 +59,10 @@
 .darkTheme .mainInfoForm__input {
     background: rgba(102, 102, 102, 0.4);
     color: #F4F4F4;
+}
+
+.mainInfoForm__submit:disabled {
+    background-color: #999;
+    color: #b8b8b8;
+    cursor: default;
 }

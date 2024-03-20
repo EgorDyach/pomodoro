@@ -24,6 +24,7 @@
 }
 
 .toggle {
+    transition: background-color .3s ease-in-out, border .3s ease-in-out;
     border: 2px solid #38389a;
     border-radius: 40px;
     width: 60px;
@@ -32,6 +33,7 @@
     height: 30px;
     position: relative;
 }
+
 .toggle span {
     width: 22px;
     height: 22px;
@@ -41,6 +43,7 @@
     top: 2px;
     transition: .3s ease-in-out;
     background-color: rgb(255, 149, 0);
+    transition: background-color .3s ease-in-out, border .3s ease-in-out;
 }
 
 .darkTheme .toggle span {
@@ -48,6 +51,11 @@
     transform: translateX(30px);
 }
 
-.lightTheme .toggle span {
+.toggle:disabled {
+    border-color: #999;
+    cursor: default;
+}
 
+.toggle:disabled span {
+    background-color: #999;
 }

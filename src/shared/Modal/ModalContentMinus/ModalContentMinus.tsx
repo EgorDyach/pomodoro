@@ -11,7 +11,7 @@ export function ModalContentMinus({ active }: { active: Task }) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
     if (Number.isInteger(value)) {
-      if (value < 0 || value > (active.count - 1)) {
+      if (value < 0 || value > (active.count - active.activeTomato)) {
         setNumber(number);
       } else {
         setNumber(value);
