@@ -73,14 +73,14 @@ export function MainTimerBody({ active }: { active: Task; }) {
       } else if (isPlaying) {
         setTimeOfTask(timeOfTask - 1)
       }
-    }, 10)
+    }, 1000)
 
     return () => clearInterval(interval);
   }, [active, dispatch, isNotificationOn, isPlaying, timeOfTask]);
   return (
     <div className='mainTimer__body'>
       <Text As='h3' weight={200} size={150} color={isPlaying ? '#DC3E22' : (appTheme === 'dark' ? '#E7E7E7' : "#333")} className='mainTimer__title'>{remakeTime(timeOfTask)}</Text>
-      <button onClick={handleAddMinute}><Icon size={50} typeOfIcon={EIcons.plus} /></button>
+      <button onClick={handleAddMinute} className='mainTimer__body-addMinute'><Icon size={50} typeOfIcon={EIcons.plus} /></button>
       <TimerStartStopBtn handleClick={(handleClick)} isPlaying={isPlaying} isStarted={isStarted} />
       {/* <TimerStopReadyBtn /> */}
     </div>

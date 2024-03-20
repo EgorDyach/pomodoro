@@ -4,6 +4,7 @@
     background-color: #f4f4f4;
     max-width: 753px;
     transition: .3s ease-in-out;
+    position: relative;
 }
 
 .mainTimer__title {
@@ -14,4 +15,11 @@
 
 .darkTheme .mainTimer__body {
     background-color: rgba(66, 66, 66, 0.4);
+}
+
+.mainTimer__body-addMinute {
+    position: absolute;
+    right: 100px;
+    top: 50%;
+    transform: translateY(-150%);
 }
