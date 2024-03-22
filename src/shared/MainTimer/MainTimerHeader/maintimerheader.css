@@ -19,3 +19,7 @@
 .mainTimer__header-playing, .darkTheme .mainTimer__header-playing {
  background-color: #DC3E22;   
 }
+
+.mainTimer__header-break, .darkTheme .mainTimer__header-break {
+    background-color: #A8B64F;
+}

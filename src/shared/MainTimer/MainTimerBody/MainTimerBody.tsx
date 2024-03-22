@@ -33,13 +33,18 @@ const remakeTime = (time: number): string => {
 }
 
 export function MainTimerBody({ active }: { active: Task; }) {
-  const [timeOfTask, setTimeOfTask] = useState(active.timeOfTask)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isStarted, setIsStarted] = useState(useSelector<RootState, boolean>(state => state.isStartedTimer))
   const isNotificationOn = useSelector<RootState, boolean>(state => state.Local.isNotificationsOn)
   const appTheme = useSelector<RootState, string>(state => state.Local.appTheme)
   const timeOfTaskFromSettings = useSelector<RootState, number>(state => state.Local.timeOfTomato)
-
+  const timeOfLongBreak = useSelector<RootState, number>(state => state.Local.timeOfLongBreak)
+  const timeOfLittleBreak = useSelector<RootState, number>(state => state.Local.timeOfLittleBreak)
+  const isAutoPlay = useSelector<RootState, boolean>(state => state.Local.isAutoPlay)
+  const countOfBreaks = useSelector<RootState, number>(state => state.Local.countOfBreaks)
+  const [timeOfTask, setTimeOfTask] = useState(active.timeOfTask)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isBreakTimer, setIsBreakTimer] = useState(false)
+  const [isStarted, setIsStarted] = useState(useSelector<RootState, boolean>(state => state.isStartedTimer))
+  const [timeOfBreak, setTimeOfBreak] = useState(countOfBreaks === 0 ? timeOfLongBreak*60 : timeOfLittleBreak*60)
   const dispatch = useDispatch();
 
   const handleAddMinute = () => {
@@ -55,13 +60,29 @@ export function MainTimerBody({ active }: { active: Task; }) {
   }
 
   const handleClickStop = () => {
-    setTimeOfTask(timeOfTaskFromSettings * 60)
-    setIsPlaying(false)
-    setIsStarted(false)
-    if (isPlaying) {
-      dispatch({ type: "SAVE_TIME_OF_TASK", active, timeOfTask: (timeOfTaskFromSettings * 60), })
+    if (isBreakTimer) {
+      setIsBreakTimer(false)
+      setTimeOfBreak(countOfBreaks === 0 ? timeOfLongBreak*60 : timeOfLittleBreak*60)
+      setIsPlaying(false)
+      setIsStarted(false)
+      if (isAutoPlay) {
+        setIsPlaying(true)
+        setIsStarted(true)
+      }
     } else {
-      dispatch({ type: "END_OF_TASK_TOMATO", active: active })
+      setTimeOfTask(timeOfTaskFromSettings * 60)
+      setIsPlaying(false)
+      setIsStarted(false)
+      if (isPlaying) {
+        dispatch({ type: "SAVE_TIME_OF_TASK", isPlaying, active, timeOfTask: (timeOfTaskFromSettings * 60) })
+      } else {
+        dispatch({ type: "END_OF_TASK_TOMATO", active: active })
+        setIsBreakTimer(true)
+        if (isAutoPlay) {
+          setIsPlaying(true)
+          setIsStarted(true)
+        }
+      }
     }
 
   }
@@ -71,33 +92,65 @@ export function MainTimerBody({ active }: { active: Task; }) {
   }, [active.id, active.timeOfTask, active.activeTomato])
 
   useEffect(() => {
-    dispatch({ type: "SET_IS_PLAYING_TIMER", isPlaying, isStarted })
-  }, [dispatch, isPlaying, isStarted])
+    setTimeOfBreak(timeOfBreak)
+  }, [timeOfBreak])
+
+  useEffect(() => {
+    dispatch({ type: "SET_IS_PLAYING_TIMER", isPlaying, isStarted, isBreakTimer })
+  }, [dispatch, isBreakTimer, isPlaying, isStarted])
 
   useEffect(() => {
     const interval = setTimeout(() => {
-      if (timeOfTask === 0) {
-        setIsPlaying(false);
-        setIsStarted(false);
-        if (isNotificationOn) {
-          const audio = new Audio(sound);
-          audio.play();
+      if (!isBreakTimer) {
+        if (timeOfTask === 0) {
+          setIsPlaying(false);
+          if (isNotificationOn) {
+            const audio = new Audio(sound);
+            audio.play();
+          }
+          dispatch({ type: "END_OF_TASK_TOMATO", active: active })
+          setIsBreakTimer(true)
+          if (isAutoPlay) {
+            setIsPlaying(true)
+          }
+        } else if (isPlaying) {
+          setTimeOfTask(timeOfTask - 1)
         }
-        dispatch({ type: "END_OF_TASK_TOMATO", active: active })
-      } else if (isPlaying) {
-        setTimeOfTask(timeOfTask - 1)
       }
     }, 1000)
 
     return () => clearInterval(interval);
-  }, [active, dispatch, isNotificationOn, isPlaying, timeOfTask]);
+  }, [active, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, timeOfTask]);
+
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      if (isBreakTimer) {
+        if (timeOfBreak === 0) {
+          setIsPlaying(false);
+          if (isNotificationOn) {
+            const audio = new Audio(sound);
+            audio.play();
+          }
+          setIsBreakTimer(false)
+          if (isAutoPlay) {
+            setIsPlaying(true)
+          }
+          setTimeOfBreak(countOfBreaks === 0 ? timeOfLongBreak*60 : timeOfLittleBreak*60)
+        } else if (isPlaying) {
+          setTimeOfBreak(timeOfBreak - 1)
+        }
+      }
+    }, 1000)
+
+    return () => clearInterval(interval);
+  }, [active, countOfBreaks, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, timeOfBreak, timeOfLittleBreak, timeOfLongBreak]);
   return (
     <div className='mainTimer__body'>
-      <Text As='h3' weight={200} size={150} color={isPlaying ? '#DC3E22' : (appTheme === 'dark' ? '#E7E7E7' : "#333")} className='mainTimer__title'>{remakeTime(timeOfTask)}</Text>
+      <Text As='h3' weight={200} size={150} color={isPlaying ? (isBreakTimer ? '#A8B64F' : '#DC3E22') : (appTheme === 'dark' ? '#E7E7E7' : "#333")} className='mainTimer__title'>{remakeTime(isBreakTimer ? timeOfBreak :timeOfTask)}</Text>
       <button onClick={handleAddMinute} className='mainTimer__body-addMinute'><Icon size={50} typeOfIcon={EIcons.plus} /></button>
       <div className="mainTimer__controls">
         <TimerStartStopBtn handleClick={(handleClick)} isPlaying={isPlaying} isStarted={isStarted} />
-        <TimerStopReadyBtn handleClick={(handleClickStop)} isPlaying={isPlaying} isStarted={isStarted} />
+        <TimerStopReadyBtn handleClick={(handleClickStop)} isBreakTimer={isBreakTimer} isPlaying={isPlaying} isStarted={isStarted} />
       </div>
     </div>
   );

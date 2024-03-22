@@ -109,3 +109,11 @@
     margin: 0 auto;
     cursor: pointer;
 }
+
+.settings__toggles {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 50px;
+    flex-direction: row;
+    margin-bottom: 40px;
+}

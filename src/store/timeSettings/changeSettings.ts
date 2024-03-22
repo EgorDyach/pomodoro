@@ -16,7 +16,6 @@ export const changeSettings: Reducer<ToLocalType, AnyAction> = (state, action) =
             }   
         }
     })
-    console.log(newTasks)
     return {
         ...state,
         arrayOfTasks: newTasks,
@@ -24,7 +23,8 @@ export const changeSettings: Reducer<ToLocalType, AnyAction> = (state, action) =
         isNotificationsOn: action.isNotificationsOn,
         timeOfLittleBreak: action.timeOfLittleBreak,
         timeOfLongBreak: action.timeOfLongBreak,
-        frequencyLongBreak: action.frequencyLongBreak
+        frequencyLongBreak: action.frequencyLongBreak,
+        isAutoPlay: action.isAutoPlay
     }
 }
 

@@ -10,7 +10,8 @@ export const endOfTaskTomato: Reducer<ToLocalType, AnyAction> = (state, action) 
         const newTasks = tasks.filter(e => e.id !== active.id)
         return {
             ...state,
-            arrayOfTasks: newTasks
+            arrayOfTasks: newTasks,
+            countOfBreaks: (state.countOfBreaks+1 === state.frequencyLongBreak ? 0 : state.countOfBreaks+1)
         }
     } else {
         const newTasks = tasks.map(e => (e.id !== active.id ? e : {
@@ -22,7 +23,9 @@ export const endOfTaskTomato: Reducer<ToLocalType, AnyAction> = (state, action) 
         }))
         return {
             ...state,
-            arrayOfTasks: newTasks
+            arrayOfTasks: newTasks,
+            countOfBreaks: (state.countOfBreaks+1 === state.frequencyLongBreak ? 0 : state.countOfBreaks+1)
+
         }
     }
 }

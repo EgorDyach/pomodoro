@@ -14,12 +14,13 @@ export function SettingsPage() {
   const [timeOfLongBreak, setTimeOfLongBreak] = useState(state.timeOfLongBreak)
   const [isNotificationsOn, setIsNotificationsOn] = useState(state.isNotificationsOn)
   const [frequencyLongBreak, setFrequencyLongBreak] = useState(state.frequencyLongBreak)
+  const [isAutoPlay, setIsAutoPlay] = useState(state.isAutoPlay)
   const [isDisabled, setIsDisabled] = useState(true)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const appTheme = state.appTheme
   const handleClick = () => {
-    dispatch({ type: "CHANGE_SETTINGS", timeOfTomato, timeOfLittleBreak, timeOfLongBreak, isNotificationsOn, frequencyLongBreak });
+    dispatch({ type: "CHANGE_SETTINGS", timeOfTomato, timeOfLittleBreak, timeOfLongBreak, isNotificationsOn, frequencyLongBreak, isAutoPlay });
     setIsDisabled(true);
     alert('Успешно!');
     navigate('/')
@@ -33,12 +34,12 @@ export function SettingsPage() {
 
     if (timeOfTomato === 0 || timeOfLongBreak === 0 || timeOfLittleBreak === 0 || frequencyLongBreak === 0) {
       setIsDisabled(true)
-    } else if ((timeOfLongBreak !== state.timeOfLongBreak) || (timeOfTomato !== state.timeOfTomato) || (timeOfLittleBreak !== state.timeOfLittleBreak) || (frequencyLongBreak !== state.frequencyLongBreak) || (state.isNotificationsOn !== isNotificationsOn)) {
+    } else if ((timeOfLongBreak !== state.timeOfLongBreak) || (timeOfTomato !== state.timeOfTomato) || (timeOfLittleBreak !== state.timeOfLittleBreak) || (frequencyLongBreak !== state.frequencyLongBreak) || (state.isNotificationsOn !== isNotificationsOn) || (state.isAutoPlay !== isAutoPlay)) {
       setIsDisabled(false)
     } else {
       setIsDisabled(true)
     }
-  }, [timeOfTomato, timeOfLongBreak, timeOfLittleBreak, isNotificationsOn, frequencyLongBreak])
+  }, [timeOfTomato, timeOfLongBreak, timeOfLittleBreak, isNotificationsOn, frequencyLongBreak, state.timeOfLongBreak, state.timeOfTomato, state.timeOfLittleBreak, state.frequencyLongBreak, state.isNotificationsOn, state.isAutoPlay, isAutoPlay])
   useEffect(() => {
     setIsDisabled(true)
     setIsNotificationsOn(state.isNotificationsOn)
@@ -46,7 +47,8 @@ export function SettingsPage() {
     setTimeOfLongBreak(state.timeOfLongBreak)
     setTimeOfTomato(state.timeOfTomato)
     setFrequencyLongBreak(state.frequencyLongBreak)
-  }, [state.timeOfLongBreak, state.timeOfTomato, state.timeOfLittleBreak, state.isNotificationsOn, state.frequencyLongBreak])
+    setIsAutoPlay(state.isAutoPlay)
+  }, [state.timeOfLongBreak, state.timeOfTomato, state.timeOfLittleBreak, state.isNotificationsOn, state.frequencyLongBreak, state.isAutoPlay])
   const handleChange = (event: (React.ChangeEvent<HTMLInputElement>)) => {
     const value = Number(event.target.value);
     const typeOfInput = event.target.getAttribute('data-settingsItem')
@@ -141,15 +143,25 @@ export function SettingsPage() {
               </div>
             </label>
           </li>
-          <li className="settings__item">
+        </ul>
+        <div className="settings__toggles">
+          <div className="settings__item">
             <label className='settings__item'>
               <Text As='p' size={16} weight={300} color={appTheme === 'dark' ? '#ffffff' : '#333'} className='settings__item-label'>
                 Уведомления об окончание помидора
               </Text>
               <button onClick={() => setIsNotificationsOn(!isNotificationsOn)} className={isNotificationsOn ? 'settings__toggle settings__toggle-active' : 'settings__toggle'} ><span></span></button>
             </label>
-          </li>
-        </ul>
+          </div>
+          <div className="settings__item">
+            <label className='settings__item'>
+              <Text As='p' size={16} weight={300} color={appTheme === 'dark' ? '#ffffff' : '#333'} className='settings__item-label'>
+                Автопереключение помидоров
+              </Text>
+              <button onClick={() => setIsAutoPlay(!isAutoPlay)} className={isAutoPlay ? 'settings__toggle settings__toggle-active' : 'settings__toggle'} ><span></span></button>
+            </label>
+          </div>
+        </div>
         <button onClick={handleClick} disabled={isDisabled} className={isDisabled ? 'settings__submit settings__submit-disabled' : 'settings__submit'} ><Text As='span' size={20} weight={500} color={isDisabled ? (appTheme === 'dark' ? '#555' : '#bbb') : '#fff'}>Сохранить</Text></button>
         <button onClick={handleReloadWeb} className='settings__reload'>Удалить все данные</button>
       </Container>

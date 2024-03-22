@@ -33,6 +33,9 @@ export type ToLocalType = {
     timeOfLongBreak: number;
     isNotificationsOn: boolean;
     frequencyLongBreak: number;
+    isAutoPlay: boolean;
+    countOfBreaks: number;
+
 }  
 
 export type RootState = {
@@ -42,24 +45,28 @@ export type RootState = {
     modalType: ModalType;
     isPlayingTimer: boolean;
     isStartedTimer: boolean;
+    isBreakTimer: boolean;
 }
 
 export const initialState: RootState = {
     Local: {
         arrayOfTasks: [],
         comment: '',
-        appTheme: 'light',
+        appTheme: 'dark',
         timeOfTomato: 25,
         timeOfLittleBreak: 5,
         timeOfLongBreak: 20,
         isNotificationsOn: true,
-        frequencyLongBreak: 4
+        isAutoPlay: true,
+        frequencyLongBreak: 4,
+        countOfBreaks: 1
     },
     isFromLocal: true,
     activeMenuID: 0,
     modalType: 'IS_NOT_OPEN',
     isPlayingTimer: false,
-    isStartedTimer: false
+    isStartedTimer: false,
+    isBreakTimer: false
 }
 
 export const rootReducer: Reducer<RootState> = (state = initialState, action) => {
@@ -135,6 +142,7 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
                 ...state,
                 isPlayingTimer: action.isPlaying,
                 isStartedTimer: action.isStarted,
+                isBreakTimer: action.isBreakTimer
             }
         case END_OF_TASK_TOMATO:
             return {
@@ -142,13 +150,13 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
                 Local: endOfTaskTomato(state.Local, action),
                 isPlayingTimer: false,
                 isStartedTimer: false,
-                isFromLocal: false
+                isFromLocal: false,
+                isBreakTimer: true
             }
         case SAVE_TIME_OF_TASK:
             return {
                 ...state,
                 Local: saveTimeOfTask(state.Local, action),
-                // isStartedTimer: action.isStarted,
                 isPlayingTimer: action.isPlaying,
                 isFromLocal: false
             }
