@@ -1,3 +1,7 @@
+.text {
+    transition: color .3s ease-in-out;
+}
+
 .color-white {
     color: #ffffff;
 }
@@ -10,12 +14,7 @@
 .color-lightGrey {
     color: #E4E8F4;
 }
-.color-greenGradient {
-    color: transparent;
-    background: linear-gradient(180deg, #24A974 0%, #039C80 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-}
+
 .color-darkGray {
     color: #232323;
 }

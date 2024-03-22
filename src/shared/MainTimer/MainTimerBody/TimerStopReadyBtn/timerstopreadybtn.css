@@ -1,0 +1,15 @@
+.timerStopReady__btn {
+    padding: 20px 50px;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+    border: 1px solid #DC3E22;
+}
+
+.timerStopReady__btn:disabled {
+    border-color: #C4C4C4;
+    cursor: default;
+}
+
+.timerStopReady__btn-ready {
+    background-color: #DC3E22;
+}

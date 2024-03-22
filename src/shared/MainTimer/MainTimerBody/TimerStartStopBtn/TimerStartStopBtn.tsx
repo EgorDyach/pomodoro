@@ -5,7 +5,7 @@ export function TimerStartStopBtn({handleClick, isStarted, isPlaying}: {handleCl
 
   return (
       <button className='timerStartStop__btn' onClick={handleClick}>
-        <Text As='span' size={16} color='#fff'>
+        <Text weight={400} As='span' size={16} color='#fff'>
           {isPlaying ? 'Пауза' : (isStarted ? 'Продолжить' : "Старт")}
         </Text>
     </button>

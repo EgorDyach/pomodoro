@@ -7,6 +7,7 @@ import sound from '../../../assets/soundOfNotification__default.mp3'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { EIcons, Icon } from '../../../components/Icon';
+import { TimerStopReadyBtn } from './TimerStopReadyBtn';
 
 const remakeTime = (time: number): string => {
   const timeArr: number[] = []
@@ -37,6 +38,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
   const [isStarted, setIsStarted] = useState(useSelector<RootState, boolean>(state => state.isStartedTimer))
   const isNotificationOn = useSelector<RootState, boolean>(state => state.Local.isNotificationsOn)
   const appTheme = useSelector<RootState, string>(state => state.Local.appTheme)
+  const timeOfTaskFromSettings = useSelector<RootState, number>(state => state.Local.timeOfTomato)
 
   const dispatch = useDispatch();
 
@@ -48,8 +50,20 @@ export function MainTimerBody({ active }: { active: Task; }) {
     setIsStarted(true)
     setIsPlaying(!isPlaying)
     if (isPlaying) {
-      dispatch({type: "SAVE_TIME_OF_TASK", active, timeOfTask,})
+      dispatch({ type: "SAVE_TIME_OF_TASK", active, timeOfTask, })
     }
+  }
+
+  const handleClickStop = () => {
+    setTimeOfTask(timeOfTaskFromSettings * 60)
+    setIsPlaying(false)
+    setIsStarted(false)
+    if (isPlaying) {
+      dispatch({ type: "SAVE_TIME_OF_TASK", active, timeOfTask: (timeOfTaskFromSettings * 60), })
+    } else {
+      dispatch({ type: "END_OF_TASK_TOMATO", active: active })
+    }
+
   }
 
   useEffect(() => {
@@ -57,7 +71,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
   }, [active.id, active.timeOfTask, active.activeTomato])
 
   useEffect(() => {
-    dispatch({type: "SET_IS_PLAYING_TIMER", isPlaying, isStarted})
+    dispatch({ type: "SET_IS_PLAYING_TIMER", isPlaying, isStarted })
   }, [dispatch, isPlaying, isStarted])
 
   useEffect(() => {
@@ -69,7 +83,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           const audio = new Audio(sound);
           audio.play();
         }
-        dispatch({type: "END_OF_TASK_TOMATO", active: active})
+        dispatch({ type: "END_OF_TASK_TOMATO", active: active })
       } else if (isPlaying) {
         setTimeOfTask(timeOfTask - 1)
       }
@@ -81,8 +95,10 @@ export function MainTimerBody({ active }: { active: Task; }) {
     <div className='mainTimer__body'>
       <Text As='h3' weight={200} size={150} color={isPlaying ? '#DC3E22' : (appTheme === 'dark' ? '#E7E7E7' : "#333")} className='mainTimer__title'>{remakeTime(timeOfTask)}</Text>
       <button onClick={handleAddMinute} className='mainTimer__body-addMinute'><Icon size={50} typeOfIcon={EIcons.plus} /></button>
-      <TimerStartStopBtn handleClick={(handleClick)} isPlaying={isPlaying} isStarted={isStarted} />
-      {/* <TimerStopReadyBtn /> */}
+      <div className="mainTimer__controls">
+        <TimerStartStopBtn handleClick={(handleClick)} isPlaying={isPlaying} isStarted={isStarted} />
+        <TimerStopReadyBtn handleClick={(handleClickStop)} isPlaying={isPlaying} isStarted={isStarted} />
+      </div>
     </div>
   );
 }

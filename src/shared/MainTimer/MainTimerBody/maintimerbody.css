@@ -23,3 +23,12 @@
     top: 50%;
     transform: translateY(-150%);
 }
+
+.mainTimer__controls {
+    display: flex;
+    justify-content: center;
+}
+
+.timerStartStop__btn {
+    margin-right: 25px;
+}

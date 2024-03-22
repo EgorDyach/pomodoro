@@ -1,4 +1,11 @@
 .timerStartStop__btn {
     padding: 20px 50px;
     background-color: #A8B64F;
+    cursor: pointer;   
+    transition: background-color .3s ease-in-out;
 }
+
+.timerStartStop__btn:hover {
+    background-color: #899441;
+}
+
