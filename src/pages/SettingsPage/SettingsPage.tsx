@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, ToLocalType } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
+import { ChangeNotification } from './ChangeNotification';
 // import { useDispatch } from 'react-redux';
 
 export function SettingsPage() {
@@ -153,6 +154,7 @@ export function SettingsPage() {
               <button onClick={() => setIsNotificationsOn(!isNotificationsOn)} className={isNotificationsOn ? 'settings__toggle settings__toggle-active' : 'settings__toggle'} ><span></span></button>
             </label>
           </div>
+          <ChangeNotification />
           <div className="settings__item">
             <label className='settings__item'>
               <Text As='p' size={16} weight={300} color={appTheme === 'dark' ? '#ffffff' : '#333'} className='settings__item-label'>

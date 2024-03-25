@@ -3,7 +3,6 @@ import { RootState, Task } from '../../../store/store';
 import { Text } from '../../../components/Text';
 import { TimerStartStopBtn } from './TimerStartStopBtn';
 import { useEffect, useState } from 'react';
-import sound from '../../../assets/soundOfNotification__default.mp3'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { EIcons, Icon } from '../../../components/Icon';
@@ -40,6 +39,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
   const timeOfLittleBreak = useSelector<RootState, number>(state => state.Local.timeOfLittleBreak)
   const isAutoPlay = useSelector<RootState, boolean>(state => state.Local.isAutoPlay)
   const countOfBreaks = useSelector<RootState, number>(state => state.Local.countOfBreaks)
+  const soundOfNotification = useSelector<RootState, string>(state => state.Local.soundOfNotification)
   const [timeOfTask, setTimeOfTask] = useState(active.timeOfTask)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isBreakTimer, setIsBreakTimer] = useState(false)
@@ -105,7 +105,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
         if (timeOfTask === 0) {
           setIsPlaying(false);
           if (isNotificationOn) {
-            const audio = new Audio(sound);
+            const audio = new Audio(soundOfNotification);
             audio.play();
           }
           dispatch({ type: "END_OF_TASK_TOMATO", active: active })
@@ -117,10 +117,10 @@ export function MainTimerBody({ active }: { active: Task; }) {
           setTimeOfTask(timeOfTask - 1)
         }
       }
-    }, 1000)
+    }, 10)
 
     return () => clearInterval(interval);
-  }, [active, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, timeOfTask]);
+  }, [active, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, soundOfNotification, timeOfTask]);
 
   useEffect(() => {
     const interval = setTimeout(() => {
@@ -128,7 +128,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
         if (timeOfBreak === 0) {
           setIsPlaying(false);
           if (isNotificationOn) {
-            const audio = new Audio(sound);
+            const audio = new Audio(soundOfNotification);
             audio.play();
           }
           setIsBreakTimer(false)
@@ -140,7 +140,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           setTimeOfBreak(timeOfBreak - 1)
         }
       }
-    }, 1000)
+    }, 10)
 
     return () => clearInterval(interval);
   }, [active, countOfBreaks, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, timeOfBreak, timeOfLittleBreak, timeOfLongBreak]);

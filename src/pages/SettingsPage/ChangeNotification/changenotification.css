@@ -1,0 +1,64 @@
+.listOfSounds {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    max-width: 300px;
+    padding: 10px;
+    border: 2px solid #f4f4f4;
+    border-radius: 5px;
+    position: absolute;
+    top: -9999px;
+    background-color: #333;
+    transform: translateX(-25px);
+
+
+}
+
+.itemOfSounds {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.itemOfSounds button {
+    cursor: pointer;
+}
+
+.listOfSounds-open {
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.changeSoundOpen {
+    border: 1px solid #fff;
+    padding: 10px;
+    cursor: pointer;
+    padding-right: 50px;
+    border-radius: 10px;
+    position: relative;
+    transition: .3s ease-in-out;
+    transform: translateX(-25px);
+}
+
+.changeSoundOpen::after {
+    content: '';
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f4f4f4;
+    top: 15px;
+    right: 15px;
+    transition: .3s ease-in-out;
+}
+
+.changeSoundOpen-open::after {
+    transform: rotate(180deg);
+    transition: .3s ease-in-out;
+
+}

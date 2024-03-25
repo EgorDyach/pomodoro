@@ -9,10 +9,12 @@ import { changeReducer } from './modal/changeReducer';
 import { themeReducer } from './Theme/reducer';
 import { upPriorityReducer } from './menu/upPriority';
 import { downPriorityReducer } from './menu/downPriority';
-import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK } from './dataForStore';
+import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK, CHANGE_NOTIFICATION_SOUND } from './dataForStore';
 import { changeSettings } from './timeSettings/changeSettings';
 import { endOfTaskTomato } from './MainForm/endOfTaskTomato';
 import { saveTimeOfTask } from './MainForm/saveTimeOfTask';
+import { notificatonSoundReducer } from './notifications/notificationSoundReducer';
+import SoundDefault from "../assets/sounds/soundOfNotification__default.mp3";
 
 export type Task = {
     title: string;
@@ -35,7 +37,7 @@ export type ToLocalType = {
     frequencyLongBreak: number;
     isAutoPlay: boolean;
     countOfBreaks: number;
-
+    soundOfNotification: string;
 }  
 
 export type RootState = {
@@ -59,7 +61,8 @@ export const initialState: RootState = {
         isNotificationsOn: true,
         isAutoPlay: true,
         frequencyLongBreak: 4,
-        countOfBreaks: 1
+        countOfBreaks: 1,
+        soundOfNotification: SoundDefault
     },
     isFromLocal: true,
     activeMenuID: 0,
@@ -158,6 +161,12 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
                 ...state,
                 Local: saveTimeOfTask(state.Local, action),
                 isPlayingTimer: action.isPlaying,
+                isFromLocal: false
+            }
+        case CHANGE_NOTIFICATION_SOUND:
+            return {
+                ...state,
+                Local: notificatonSoundReducer(state.Local, action),
                 isFromLocal: false
             }
         default:
