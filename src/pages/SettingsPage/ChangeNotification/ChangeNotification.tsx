@@ -53,7 +53,7 @@ export function ChangeNotification() {
                 <path d="M20 0C8.95 0 0 8.95 0 20C0 31.05 8.95 40 20 40C31.05 40 40 31.05 40 20C40 8.95 31.05 0 20 0ZM16 29V11L28 20L16 29Z" fill={appTheme === 'dark' ? "white" : "black"} />
               </svg>
               )}</button>
-              <Text size={16} className={indexOfPlaying === content.indexOf(e) ? "" : ""} color={appTheme === 'dark' ? '#f4f4f4' : '#333'}>Уведомление #{content.indexOf(e) + 1}</Text>
+              <Text size={16} weight={300} className={indexOfPlaying === content.indexOf(e) ? "" : ""} color={appTheme === 'dark' ? '#f4f4f4' : '#333'}>Уведомление #{content.indexOf(e) + 1}</Text>
               <button onClick={() => handleSetSound(e)}>{state.soundOfNotification === e ? (<svg width="20" height="20" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M32 0H4C1.79 0 0 1.79 0 4V32C0 34.21 1.79 36 4 36H32C34.21 36 36 34.21 36 32V4C36 1.79 34.21 0 32 0ZM14 28L4 18L6.83 15.17L14 22.34L29.17 7.17L32 10L14 28Z" fill={appTheme === 'dark' ? "white" : "black"} />
               </svg>

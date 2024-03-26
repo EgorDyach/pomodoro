@@ -143,7 +143,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
     }, 10)
 
     return () => clearInterval(interval);
-  }, [active, countOfBreaks, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, timeOfBreak, timeOfLittleBreak, timeOfLongBreak]);
+  }, [active, countOfBreaks, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, soundOfNotification, timeOfBreak, timeOfLittleBreak, timeOfLongBreak]);
   return (
     <div className='mainTimer__body'>
       <Text As='h3' weight={200} size={150} color={isPlaying ? (isBreakTimer ? '#A8B64F' : '#DC3E22') : (appTheme === 'dark' ? '#E7E7E7' : "#333")} className='mainTimer__title'>{remakeTime(isBreakTimer ? timeOfBreak :timeOfTask)}</Text>

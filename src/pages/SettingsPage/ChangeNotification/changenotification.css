@@ -6,14 +6,19 @@
     padding: 0;
     max-width: 300px;
     padding: 10px;
-    border: 2px solid #f4f4f4;
+    border: 2px solid #333;
     border-radius: 5px;
     position: absolute;
     top: -9999px;
-    background-color: #333;
+    background-color: #f4f4f4;
     transform: translateX(-25px);
 
 
+}
+
+.darkTheme .listOfSounds {
+    border-color: #f4f4f4;
+    background-color: #333;
 }
 
 .itemOfSounds {
@@ -34,7 +39,7 @@
 }
 
 .changeSoundOpen {
-    border: 1px solid #fff;
+    border: 2px solid #333;
     padding: 10px;
     cursor: pointer;
     padding-right: 50px;
@@ -51,10 +56,18 @@
     height: 0; 
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 10px solid #f4f4f4;
+    border-bottom: 10px solid #333;
     top: 15px;
     right: 15px;
     transition: .3s ease-in-out;
+}
+
+.darkTheme .changeSoundOpen {
+    border-color: #f4f4f4;
+}
+
+.darkTheme .changeSoundOpen::after {
+    border-bottom-color: #f4f4f4;
 }
 
 .changeSoundOpen-open::after {
