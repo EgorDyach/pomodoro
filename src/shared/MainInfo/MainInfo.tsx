@@ -34,7 +34,6 @@ export function MainInfo() {
     }
   }
   let wordOfMinutes = '';
-  console.log(countOfMinutes.toString().slice(1))
   if (countOfMinutes) {
     if (countOfMinutes.toString().slice(1)) {
       if (countOfMinutes.toString().slice(1) === '1') {

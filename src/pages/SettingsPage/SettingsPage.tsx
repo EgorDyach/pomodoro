@@ -1,7 +1,7 @@
 import './settingspage.css';
 import { Text } from '../../components/Text';
 import { Container } from '../../components/Container';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, ToLocalType } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +31,7 @@ export function SettingsPage() {
     dispatch({ type: "MODAL_OPEN_DELETE_DATA" })
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
 
     if (timeOfTomato === 0 || timeOfLongBreak === 0 || timeOfLittleBreak === 0 || frequencyLongBreak === 0) {
       setIsDisabled(true)
@@ -41,7 +41,7 @@ export function SettingsPage() {
       setIsDisabled(true)
     }
   }, [timeOfTomato, timeOfLongBreak, timeOfLittleBreak, isNotificationsOn, frequencyLongBreak, state.timeOfLongBreak, state.timeOfTomato, state.timeOfLittleBreak, state.frequencyLongBreak, state.isNotificationsOn, state.isAutoPlay, isAutoPlay])
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsDisabled(true)
     setIsNotificationsOn(state.isNotificationsOn)
     setTimeOfLittleBreak(state.timeOfLittleBreak)

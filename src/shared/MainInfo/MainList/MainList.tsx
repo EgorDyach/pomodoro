@@ -2,11 +2,11 @@ import  './mainlist.css';
 import { useSelector } from 'react-redux';
 import { RootState, ToLocalType } from '../../../store/store';
 import { MainItem } from './MainItem';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 export function MainList() {
   const tasks = useSelector<RootState, ToLocalType>(state => state.Local)
-  useEffect(() => {
+  useLayoutEffect(() => {
     
   }, [tasks])
   return (

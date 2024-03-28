@@ -9,12 +9,13 @@ import { changeReducer } from './modal/changeReducer';
 import { themeReducer } from './Theme/reducer';
 import { upPriorityReducer } from './menu/upPriority';
 import { downPriorityReducer } from './menu/downPriority';
-import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK, CHANGE_NOTIFICATION_SOUND } from './dataForStore';
+import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK, CHANGE_NOTIFICATION_SOUND, SAVE_STATISTIC, CLEAR_DATA } from './dataForStore';
 import { changeSettings } from './timeSettings/changeSettings';
 import { endOfTaskTomato } from './MainForm/endOfTaskTomato';
 import { saveTimeOfTask } from './MainForm/saveTimeOfTask';
 import { notificatonSoundReducer } from './notifications/notificationSoundReducer';
 import SoundDefault from "../assets/sounds/soundOfNotification__default.mp3";
+import { saveStatistic } from './statistic/saveStatistic';
 
 export type Task = {
     title: string;
@@ -23,6 +24,23 @@ export type Task = {
     activeTomato: number;
     timeOfTask: number;
 }
+export type StatisticTomato = {
+    title: string;
+    timeOnPause: number;
+    countOfPauses: number;
+    id: number;
+}
+
+export type StatisticDay = {
+    day: string;
+    timeOfWork: number;
+    timeOfPause: number;
+    tomatosDone: StatisticTomato[];
+}
+
+export type StatisticType = {
+    days: StatisticDay[];
+}
 
 export type ModalType = 'OPEN_MODAL_PLUS' | 'OPEN_MODAL_MINUS' | 'OPEN_MODAL_CHANGE' | 'OPEN_MODAL_DELETE' | 'IS_NOT_OPEN' | 'MODAL_OPEN_DELETE_DATA';
 
@@ -30,6 +48,7 @@ export type ToLocalType = {
     arrayOfTasks: Task[];
     comment: string;
     appTheme: 'dark' | 'light';
+    statistic: StatisticType;
     timeOfTomato: number;
     timeOfLittleBreak: number;
     timeOfLongBreak: number;
@@ -55,6 +74,9 @@ export const initialState: RootState = {
         arrayOfTasks: [],
         comment: '',
         appTheme: 'dark',
+        statistic: {
+            days: [],
+        },
         timeOfTomato: 25,
         timeOfLittleBreak: 5,
         timeOfLongBreak: 20,
@@ -80,6 +102,8 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
             return { ...state, activeMenuID: action.activeMenuID }
         case SET_FROM_LOCAL:
             return { ...state, Local: action.stateFromLocal, isFromLocal: true };
+        case CLEAR_DATA:
+            return initialState;
 
         case OPEN_MODAL_CHANGE:
         case OPEN_MODAL_PLUS:
@@ -151,7 +175,7 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
             return {
                 ...state,
                 Local: endOfTaskTomato(state.Local, action),
-                isPlayingTimer: false,
+                isPlayingTimer: action.isPlaying,
                 isStartedTimer: false,
                 isFromLocal: false,
                 isBreakTimer: true
@@ -167,6 +191,12 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
             return {
                 ...state,
                 Local: notificatonSoundReducer(state.Local, action),
+                isFromLocal: false
+            }
+        case SAVE_STATISTIC:
+            return {
+                ...state,
+                Local: saveStatistic(state.Local, action),
                 isFromLocal: false
             }
         default:

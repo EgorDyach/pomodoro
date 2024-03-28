@@ -1,4 +1,4 @@
-import  { ReactNode, useEffect } from 'react';
+import  { ReactNode, useLayoutEffect } from 'react';
 import { loadState, saveState } from '../../store/localStorage';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -9,14 +9,14 @@ export function Layout({children}: {children: ReactNode}) {
   const dispatch = useDispatch()
   const stringFromLocal = loadState()
   const state = useSelector<RootState, RootState>(state => state);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (stringFromLocal !== '') {
       console.log(stringFromLocal)
       const stateFromLocal = JSON.parse(stringFromLocal)
       dispatch({type: 'SET_FROM_LOCAL', stateFromLocal})
     }
   }, [dispatch, stringFromLocal])
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!state.isFromLocal) {
       dispatch({type: "SAVED_TO_LOCAL"})
       saveState(state.Local)

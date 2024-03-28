@@ -11,7 +11,6 @@ export const downPriorityReducer: Reducer<ToLocalType, AnyAction> = (state, acti
     const wasTask = tasks[tasks.indexOf(task) + 1]
     tasks[tasks.indexOf(wasTask)] = task
     tasks[tasks.indexOf(task)] = wasTask
-    console.log(tasks)
 
     return {
         ...state,

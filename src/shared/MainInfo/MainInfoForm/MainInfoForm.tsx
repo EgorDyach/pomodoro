@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import './maininfoform.css';
 import { useSelector } from 'react-redux';
 import { RootState, Task } from '../../../store/store';
@@ -37,7 +37,7 @@ export function MainInfoForm() {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setValueOfTask('')
   }, [isPlaying])
 

@@ -10,6 +10,7 @@ export function ModalContentDeleteData() {
   const handleSubmit = () => {
     localStorage.clear();
     navigate('/');
+    dispatch({type: "CLEAR_DATA"})
     location.reload();
   }
   return (

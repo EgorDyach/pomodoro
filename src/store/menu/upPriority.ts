@@ -8,11 +8,9 @@ export const upPriorityReducer: Reducer<ToLocalType, AnyAction> = (state, action
     if (typeof task === 'undefined') {
         return state;
     }
-    console.log(tasks)
     const wasTask = tasks[tasks.indexOf(task) - 1]
     tasks[tasks.indexOf(task)] = wasTask
     tasks[tasks.indexOf(wasTask)] = task
-    console.log(tasks)
 
     return {
         ...state,
