@@ -15,22 +15,20 @@ export const saveStatistic: Reducer<ToLocalType, AnyAction> = (state, action) =>
         res.timeOfWork = res.timeOfWork + action.timeOfWork;
         res.timeOfPause = res.timeOfPause + action.timeOfPause;
         if (action.isDone) {
-            const resTomato = res.tomatosDone.find(e => e.id === action.active.id)
-            const newTomatos = res.tomatosDone.filter(e => e.id !== action.active.id);
+            const resTomato = res.taskStatistic.find(e => e.id === action.active.id)
+            const newTomatos = res.taskStatistic.filter(e => e.id !== action.active.id);
             if (typeof resTomato !== 'undefined') {
                 resTomato.countOfPauses += action.countOfPauses
-                resTomato.timeOnPause += action.timeOnPause
                 newTomatos.push(resTomato)
             } else {
                 const newTomato = {
                     title: action.active.title,
-                    timeOnPause: action.timeOnPause,
                     countOfPauses: action.countOfPauses,
                     id: action.active.id,
                 }
                 newTomatos.push(newTomato)
             }
-            res.tomatosDone = newTomatos
+            res.taskStatistic = newTomatos
         }
         newDays.push(res)
     } else {
@@ -38,16 +36,15 @@ export const saveStatistic: Reducer<ToLocalType, AnyAction> = (state, action) =>
             day: day,
             timeOfWork: action.timeOfWork,
             timeOfPause: action.timeOfPause,
-            tomatosDone: []
+            taskStatistic: []
         }
         if (action.isDone) {
             const newTomato: StatisticTomato = {
                 title: action.active.title,
-                timeOnPause: action.timeOnPause,
                 countOfPauses: action.countOfPauses,
                 id: action.active.id,
             }
-            newDay.tomatosDone = [newTomato]
+            newDay.taskStatistic = [newTomato]
         }
         newDays.push(newDay)
     }

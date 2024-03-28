@@ -26,7 +26,6 @@ export type Task = {
 }
 export type StatisticTomato = {
     title: string;
-    timeOnPause: number;
     countOfPauses: number;
     id: number;
 }
@@ -35,7 +34,7 @@ export type StatisticDay = {
     day: string;
     timeOfWork: number;
     timeOfPause: number;
-    tomatosDone: StatisticTomato[];
+    taskStatistic: StatisticTomato[];
 }
 
 export type StatisticType = {

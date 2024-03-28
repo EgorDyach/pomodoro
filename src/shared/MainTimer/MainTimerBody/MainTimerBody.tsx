@@ -81,10 +81,15 @@ export function MainTimerBody({ active }: { active: Task; }) {
       if (isPlaying) {
         setTimeOfWork(0)
         setTimeOnPause(0)
+        setCountOfPauses(0)
         setIsPlaying(false)
         setIsStarted(false)
         dispatch({ type: "SAVE_TIME_OF_TASK", isPlaying, active, timeOfTask: (timeOfTaskFromSettings * 60) })
       } else {
+        dispatch({ type: "SAVE_STATISTIC", isDone: true, timeOfWork, timeOfPause, countOfPauses, active, timeOnDone: timeOfTask })
+        setTimeOfWork(0)
+        setTimeOnPause(0)
+        setCountOfPauses(0)
         dispatch({ type: "END_OF_TASK_TOMATO", active: active })
         setIsBreakTimer(true)
         if (isAutoPlay) {
@@ -108,7 +113,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           setTimeOnPause(timeOfPause + 1)
         }
       }
-    }, 1000);
+    }, 100);
 
     return () => { clearInterval(interval); }
   }, [isBreakTimer, isPlaying, isStarted, timeOfWork, timeOfPause])
@@ -118,12 +123,12 @@ export function MainTimerBody({ active }: { active: Task; }) {
   }, [timeOfBreak])
 
   useLayoutEffect(() => {
-    dispatch({ type: "SAVE_STATISTIC", isDone: false, timeOfWork, timeOfPause })
+    dispatch({ type: "SAVE_STATISTIC", isDone: false, timeOfWork, timeOfPause, countOfPauses })
     setTimeOfWork(0)
     setTimeOnPause(0)
     dispatch({ type: "SET_IS_PLAYING_TIMER", isPlaying, isStarted, isBreakTimer })
 
-  }, [isBreakTimer, isPlaying, isStarted])
+  }, [dispatch, isBreakTimer, isPlaying, isStarted, timeOfPause])
 
   useLayoutEffect(() => {
     const interval = setInterval(() => {
@@ -137,6 +142,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           dispatch({ type: "SAVE_STATISTIC", isDone: true, timeOfWork, timeOfPause, countOfPauses, active, timeOnDone: timeOfTask })
           setTimeOfWork(0)
           setTimeOnPause(0)
+          setCountOfPauses(0)
           dispatch({ type: "END_OF_TASK_TOMATO", active: active })
           setIsBreakTimer(true)
           if (isAutoPlay) {
@@ -146,7 +152,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           setTimeOfTask(timeOfTask - 1)
         }
       }
-    }, 1000)
+    }, 100)
 
     return () => clearInterval(interval);
   }, [active, countOfPauses, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, soundOfNotification, timeOfTask, timeOfWork, timeOfPause]);
@@ -169,7 +175,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           setTimeOfBreak(timeOfBreak - 1)
         }
       }
-    }, 1000)
+    }, 100)
 
     return () => clearInterval(interval);
   }, [active, countOfBreaks, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, soundOfNotification, timeOfBreak, timeOfLittleBreak, timeOfLongBreak]);
