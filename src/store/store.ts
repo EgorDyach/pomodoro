@@ -9,13 +9,14 @@ import { changeReducer } from './modal/changeReducer';
 import { themeReducer } from './Theme/reducer';
 import { upPriorityReducer } from './menu/upPriority';
 import { downPriorityReducer } from './menu/downPriority';
-import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK, CHANGE_NOTIFICATION_SOUND, SAVE_STATISTIC, CLEAR_DATA } from './dataForStore';
+import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK, CHANGE_NOTIFICATION_SOUND, SAVE_STATISTIC, CLEAR_DATA, CHANGE_SELECT_ACTIVE } from './dataForStore';
 import { changeSettings } from './timeSettings/changeSettings';
 import { endOfTaskTomato } from './MainForm/endOfTaskTomato';
 import { saveTimeOfTask } from './MainForm/saveTimeOfTask';
 import { notificatonSoundReducer } from './notifications/notificationSoundReducer';
 import SoundDefault from "../assets/sounds/soundOfNotification__default.mp3";
 import { saveStatistic } from './statistic/saveStatistic';
+import { changeSelectActive } from './statistic/changeSelectActive';
 
 export type Task = {
     title: string;
@@ -56,7 +57,17 @@ export type ToLocalType = {
     isAutoPlay: boolean;
     countOfBreaks: number;
     soundOfNotification: string;
-}  
+    statisticOptionActiveIndex: number;
+}
+
+export type typeStatisticOption = { 
+    value: string, 
+    label: string 
+}
+
+export type typeContentForApp = {
+    optionsForStatistic: typeStatisticOption[]
+}
 
 export type RootState = {
     Local: ToLocalType;
@@ -66,6 +77,7 @@ export type RootState = {
     isPlayingTimer: boolean;
     isStartedTimer: boolean;
     isBreakTimer: boolean;
+    contentForApp: typeContentForApp;
 }
 
 export const initialState: RootState = {
@@ -83,7 +95,15 @@ export const initialState: RootState = {
         isAutoPlay: true,
         frequencyLongBreak: 4,
         countOfBreaks: 1,
-        soundOfNotification: SoundDefault
+        soundOfNotification: SoundDefault,
+        statisticOptionActiveIndex: 0
+    },
+    contentForApp: {
+        optionsForStatistic: [
+            { value: 'thisWeek', label: 'Эта неделя' },
+            { value: 'lastWeek', label: 'Прошедшая неделя' },
+            { value: 'twoLastWeek', label: '2 недели назад' }
+        ]
     },
     isFromLocal: true,
     activeMenuID: 0,
@@ -196,6 +216,13 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
             return {
                 ...state,
                 Local: saveStatistic(state.Local, action),
+                isFromLocal: false
+            }
+
+        case CHANGE_SELECT_ACTIVE: 
+            return {
+                ...state,
+                Local: changeSelectActive(state.Local, action),
                 isFromLocal: false
             }
         default:

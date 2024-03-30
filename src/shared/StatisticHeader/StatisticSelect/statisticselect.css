@@ -1,0 +1,50 @@
+.statistic__select {
+    position: relative;
+}
+
+.statistic__select-list {
+    list-style: none;   
+    padding: 0;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(calc(115% - 2px));
+}
+
+.statistic__select-item {
+    width: 370px;
+    position: relative;
+    padding: 19px 15px;
+    background-color: #F4F4F4;
+}
+
+.statistic__option::after {
+    content: '';
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.statistic__select-item:not(.statistic__select-item-active) {
+    border-top: 1px solid #dedede;
+}
+
+
+.statistic__select-item-active::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+    top: 25px;
+    position: absolute;
+    right: 20px;
+    border-top: 2px solid #B7280F;
+    border-left: 2px solid #B7280F;
+    transition: top .3s ease-in-out, transform .3s ease-in-out;
+}
+
+.statistic__select-item-opened::after {
+    transform: rotate(585deg);
+    top: 20px;
+}

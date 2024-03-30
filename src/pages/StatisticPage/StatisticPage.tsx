@@ -1,7 +1,14 @@
+import { Container } from '../../components/Container';
+import { StatisticHeader } from '../../shared/StatisticHeader';
 import './statisticpage.css';
 
 export function StatisticPage() {
   return (
-    'its statistic'
+    <div className="statistic__page">
+      <Container>
+        <StatisticHeader />
+      
+      </Container>
+    </div>
   );
 }
