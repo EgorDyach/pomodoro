@@ -1,0 +1,19 @@
+.statistic__today {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 296px;
+    background-color: #F4F4F4;
+    min-height: 260px;
+}
+
+.darkTheme .statistic__today {
+    background-color: #333;
+}
+
+.statistic__today-text {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 28px;
+}

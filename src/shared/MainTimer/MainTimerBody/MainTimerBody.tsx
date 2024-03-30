@@ -7,29 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { EIcons, Icon } from '../../../components/Icon';
 import { TimerStopReadyBtn } from './TimerStopReadyBtn';
-
-const remakeTime = (time: number): string => {
-  const timeArr: number[] = []
-  let res = ''
-  timeArr.push(Math.floor(time / 60))
-  timeArr.push(time - timeArr[0] * 60)
-  if (timeArr[0] === 0) {
-    res += `00:`
-  } else if (timeArr[0] < 10) {
-    res += `0${Math.floor(timeArr[0])}:`
-  } else {
-    res += `${Math.floor(timeArr[0])}:`
-  }
-  if (timeArr[1] === 0) {
-    res += `00`
-  } else if (timeArr[1] < 10) {
-    res += `0${Math.floor(timeArr[1])}`
-  } else {
-    res += `${Math.floor(timeArr[1])}`
-  }
-
-  return res;
-}
+import { formatTime } from '../../../utils/formatTime';
 
 export function MainTimerBody({ active }: { active: Task; }) {
   const isNotificationOn = useSelector<RootState, boolean>(state => state.Local.isNotificationsOn)
@@ -181,14 +159,12 @@ export function MainTimerBody({ active }: { active: Task; }) {
   }, [active, countOfBreaks, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, soundOfNotification, timeOfBreak, timeOfLittleBreak, timeOfLongBreak]);
   return (
     <div className='mainTimer__body'>
-      <Text As='h3' weight={200} size={150} color={isPlaying ? (isBreakTimer ? '#A8B64F' : '#DC3E22') : (appTheme === 'dark' ? '#E7E7E7' : "#333")} className='mainTimer__title'>{remakeTime(isBreakTimer ? timeOfBreak : timeOfTask)}</Text>
+      <Text As='h3' weight={200} size={150} color={isPlaying ? (isBreakTimer ? '#A8B64F' : '#DC3E22') : (appTheme === 'dark' ? '#E7E7E7' : "#333")} className='mainTimer__title'>{formatTime((isBreakTimer ? timeOfBreak : timeOfTask), 'without')}</Text>
       <button onClick={handleAddMinute} className='mainTimer__body-addMinute'><Icon size={50} typeOfIcon={EIcons.plus} /></button>
       <div className="mainTimer__controls">
         <TimerStartStopBtn handleClick={(handleClick)} isPlaying={isPlaying} isStarted={isStarted} />
         <TimerStopReadyBtn handleClick={(handleClickStop)} isBreakTimer={isBreakTimer} isPlaying={isPlaying} isStarted={isStarted} />
       </div>
-      времени работы: {timeOfWork}
-      времени на паузе: {timeOfPause}
     </div>
   );
 }

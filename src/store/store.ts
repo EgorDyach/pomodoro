@@ -78,6 +78,7 @@ export type RootState = {
     isStartedTimer: boolean;
     isBreakTimer: boolean;
     contentForApp: typeContentForApp;
+    dayInStatistic: string;
 }
 
 export const initialState: RootState = {
@@ -96,7 +97,7 @@ export const initialState: RootState = {
         frequencyLongBreak: 4,
         countOfBreaks: 1,
         soundOfNotification: SoundDefault,
-        statisticOptionActiveIndex: 0
+        statisticOptionActiveIndex: 0,
     },
     contentForApp: {
         optionsForStatistic: [
@@ -110,7 +111,8 @@ export const initialState: RootState = {
     modalType: 'IS_NOT_OPEN',
     isPlayingTimer: false,
     isStartedTimer: false,
-    isBreakTimer: false
+    isBreakTimer: false,
+    dayInStatistic: (new Date().toLocaleString("ru-RU", { year: 'numeric', month: "numeric", day: "numeric" }))
 }
 
 export const rootReducer: Reducer<RootState> = (state = initialState, action) => {

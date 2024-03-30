@@ -1,5 +1,7 @@
 import { Container } from '../../components/Container';
 import { StatisticHeader } from '../../shared/StatisticHeader';
+import { StatisticIndicators } from '../../shared/StatisticIndicators';
+import { StatisticMain } from '../../shared/StatisticMain';
 import './statisticpage.css';
 
 export function StatisticPage() {
@@ -7,7 +9,8 @@ export function StatisticPage() {
     <div className="statistic__page">
       <Container>
         <StatisticHeader />
-      
+        <StatisticMain />
+        <StatisticIndicators />
       </Container>
     </div>
   );
