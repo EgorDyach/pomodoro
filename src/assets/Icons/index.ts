@@ -11,3 +11,4 @@ export * from './IconStop';
 export * from './IconHome';
 export * from './IconUp';
 export * from './IconSettings';
+export * from "./IconFunnyPomidor";

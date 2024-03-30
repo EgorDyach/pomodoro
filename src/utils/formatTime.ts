@@ -29,7 +29,7 @@ export function formatTime(time: number, type: 'short' | 'middle' | 'long' | "wi
         if (type !== 'long' && type !== 'longStatistic') {
             res += `${hours}ч `
         } else {
-            if ((5 < hours && 19 > hours) || ((hours % 10) >= 5)) {
+            if ((5 < hours && 19 >= hours) || ((hours % 10) >= 5)) {
                 res += `${hours} часов `
             } else if (hours % 10 == 1) {
                 res += `${hours} час${type === 'longStatistic' ? 'а ': " "}`
@@ -44,7 +44,7 @@ export function formatTime(time: number, type: 'short' | 'middle' | 'long' | "wi
         }else if (type === 'middle') {
             res += `${minutes} мин `
         } else {
-            if ((5 < minutes && 19 > minutes) || ((minutes % 10) >= 5)) {
+            if ((5 < minutes && 19 >= minutes) || ((minutes % 10) >= 5)) {
                 res += `${minutes} минут `
             } else if (minutes % 10 == 1) {
                 res += `${minutes} минут${type === 'longStatistic' ? 'ы ': " "}`
@@ -59,7 +59,7 @@ export function formatTime(time: number, type: 'short' | 'middle' | 'long' | "wi
         }else if (type === 'middle') {
             res += `${seconds} сек `
         } else {
-            if ((5 < seconds && 19 > seconds) || ((seconds % 10) >= 5)) {
+            if ((5 < seconds && 19 >= seconds) || ((seconds % 10) >= 5)) {
                 res += `${seconds} секунд`
             } else if (seconds % 10 == 1) {
                 res += `${seconds} секунд${type === 'longStatistic' ? 'ы': ""}`

@@ -5,8 +5,8 @@ import './statisticmain.css';
 
 export function StatisticMain() {
   return (
-    <div>
-      <div>
+    <div className='statisticMain'>
+      <div className='statisticMain__left'>
         <StatisticToday />
         <StatisticCountTomatos />
       </div>
