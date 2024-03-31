@@ -1,0 +1,17 @@
+.statistic__indicators {
+    display: flex;
+    gap: 32px;
+}
+
+.statistic__indicator {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    padding: 25px;
+}
+
+.statistic__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

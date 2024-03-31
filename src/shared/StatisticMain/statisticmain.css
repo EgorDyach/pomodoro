@@ -7,5 +7,6 @@
 
 .statisticMain {
     display: flex;
+    margin-bottom: 32px;
     justify-content: space-between;
 }
