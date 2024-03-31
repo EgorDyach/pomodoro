@@ -16,6 +16,7 @@ interface ITextProps {
   weight?: number;
   ref?: MutableRefObject<null>;
   id?: string;
+  handleClick?: () => void;
 }
 
 
@@ -29,7 +30,8 @@ export function Text(props: ITextProps) {
     className,
     weight = 400,
     ref,
-    id
+    id,
+    handleClick
   } = props
   const classes = classNames(
     `s-${size}`,
@@ -37,7 +39,7 @@ export function Text(props: ITextProps) {
     `color-${color}`, `fw-${weight}`, className
   )
   return (
-    <As ref={ref} id={id} className={classes} style={{color: color}}>
+    <As ref={ref} onClick={handleClick} id={id} className={classes} style={{color: color}}>
       {children}
     </As>
   );

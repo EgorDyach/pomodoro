@@ -15,11 +15,11 @@
 }
 
 .statistic__tomatos-nodata {
-    padding-bottom: 25px;
+    padding-bottom: 39px;
 }
 
 .statistic__tomatos-count {
-    padding: 24px 25px;
+    padding: 0 25px 24px;
     display: flex;
     align-items: center;
     gap: 20px;

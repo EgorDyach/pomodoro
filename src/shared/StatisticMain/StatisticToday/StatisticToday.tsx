@@ -16,20 +16,22 @@ const days = [
 
 export function StatisticToday() {
   const statistis = useSelector<RootState, StatisticType>(state => state.Local.statistic);
-  const day = useSelector<RootState, string>(state => state.dayInStatistic);
+  const today = useSelector<RootState, string>(state => state.dayInStatistic);
   const appTheme = useSelector<RootState, string>(state => state.Local.appTheme)
-  const isInStatistic = statistis.days.find(e => e.day === day);
+  const isInStatistic = statistis.days.find(e => e.day === today);
+  const [day, month, year] = today.split('.');
+  console.log(new Date(Number(year), Number(month) -1, Number(day)))
   if (typeof isInStatistic === 'undefined' || isInStatistic.timeOfWork === 0) {
     return (
       <div className='statistic__today'>
-        <Text weight={700} color={appTheme === 'dark' ? '#f4f4f4' : "#333"} size={24}>{days[new Date().getDay()]}</Text>
+        <Text weight={700} color={appTheme === 'dark' ? '#f4f4f4' : "#333"} size={24}>{days[new Date(Number(year), Number(month) -1, Number(day)).getDay()]} <Text size={16} color={appTheme === 'dark' ? '#f4f4f4' : "#333"}>({today})</Text></Text>
         <Text weight={300} className='statistic__today-text' color={appTheme === 'dark' ? '#f4f4f4' : "#333"} size={16}>Нет данных</Text>
       </div>
     )
   }
   return (
     <div className='statistic__today'>
-        <Text weight={700} color={appTheme === 'dark' ? '#f4f4f4' : "#333"} size={24}>{days[new Date().getDay()]}</Text>
+        <Text weight={700} color={appTheme === 'dark' ? '#f4f4f4' : "#333"} size={24}>{days[new Date(Number(year), Number(month) -1, Number(day)).getDay()]} <Text size={16} color={appTheme === 'dark' ? '#f4f4f4' : "#333"}>({today})</Text></Text>
         <Text weight={300} className='statistic__today-text' color={appTheme === 'dark' ? '#f4f4f4' : "#333"} size={16}>Вы работали над задачами<br /> в течение <Text size={16} color='#DC3E22'>{formatTime(isInStatistic.timeOfWork, 'longStatistic')}</Text></Text>
     </div> 
   );

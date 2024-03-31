@@ -1,5 +1,6 @@
 .statistic__select {
     position: relative;
+    z-index: 10;
 }
 
 .statistic__select-list {

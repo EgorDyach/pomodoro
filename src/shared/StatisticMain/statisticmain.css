@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    width: 296px;
+    width: 246px;
 }
 
 .statisticMain {
     display: flex;
-    gap: 32px;
+    justify-content: space-between;
 }

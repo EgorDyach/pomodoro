@@ -9,7 +9,7 @@ import { changeReducer } from './modal/changeReducer';
 import { themeReducer } from './Theme/reducer';
 import { upPriorityReducer } from './menu/upPriority';
 import { downPriorityReducer } from './menu/downPriority';
-import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK, CHANGE_NOTIFICATION_SOUND, SAVE_STATISTIC, CLEAR_DATA, CHANGE_SELECT_ACTIVE } from './dataForStore';
+import { ADD_TASK, SET_ACTIVE_MENU_ID, SET_FROM_LOCAL, OPEN_MODAL_CHANGE, OPEN_MODAL_PLUS, OPEN_MODAL_DELETE, OPEN_MODAL_MINUS, IS_NOT_OPEN, TASK_COUNT_PLUS, TASK_COUNT_MINUS, TASK_DELETE, TASK_CHANGE_NAME, CHANGE_THEME, CHANGE_PRIORITY_UP, CHANGE_PRIORITY_DOWN, CHANGE_SETTINGS, MODAL_OPEN_DELETE_DATA, SET_IS_PLAYING_TIMER, END_OF_TASK_TOMATO, SAVE_TIME_OF_TASK, CHANGE_NOTIFICATION_SOUND, SAVE_STATISTIC, CLEAR_DATA, CHANGE_SELECT_ACTIVE, CHANGE_DAY_IN_STATISTIC } from './dataForStore';
 import { changeSettings } from './timeSettings/changeSettings';
 import { endOfTaskTomato } from './MainForm/endOfTaskTomato';
 import { saveTimeOfTask } from './MainForm/saveTimeOfTask';
@@ -226,6 +226,11 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
                 ...state,
                 Local: changeSelectActive(state.Local, action),
                 isFromLocal: false
+            }
+        case CHANGE_DAY_IN_STATISTIC:
+            return {
+                ...state,
+                dayInStatistic: action.dayInStatistic
             }
         default:
             break;
