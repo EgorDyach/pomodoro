@@ -91,7 +91,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           setTimeOnPause(timeOfPause + 1)
         }
       }
-    }, 100);
+    }, 1000);
 
     return () => { clearInterval(interval); }
   }, [isBreakTimer, isPlaying, isStarted, timeOfWork, timeOfPause])
@@ -130,7 +130,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           setTimeOfTask(timeOfTask - 1)
         }
       }
-    }, 100)
+    }, 1000)
 
     return () => clearInterval(interval);
   }, [active, countOfPauses, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, soundOfNotification, timeOfTask, timeOfWork, timeOfPause]);
@@ -153,7 +153,7 @@ export function MainTimerBody({ active }: { active: Task; }) {
           setTimeOfBreak(timeOfBreak - 1)
         }
       }
-    }, 100)
+    }, 1000)
 
     return () => clearInterval(interval);
   }, [active, countOfBreaks, dispatch, isAutoPlay, isBreakTimer, isNotificationOn, isPlaying, soundOfNotification, timeOfBreak, timeOfLittleBreak, timeOfLongBreak]);
